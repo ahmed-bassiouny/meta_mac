@@ -101,6 +101,8 @@ public class AttendeeListFragment extends Fragment {
                             for (AttendeLisWithLetter item : attendeLisWithLetters)
                                 for (Attendee attendee : item.getAttendees())
                                     attendeeList.add(attendee);
+                            if(getActivity()==null)
+                                return;
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {

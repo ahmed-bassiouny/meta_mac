@@ -76,6 +76,8 @@ public class SpeakerListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findViewById(view);
+        speakerList=new ArrayList<>();
+        speakerListFilter=new ArrayList<>();
         loadData();
     }
 

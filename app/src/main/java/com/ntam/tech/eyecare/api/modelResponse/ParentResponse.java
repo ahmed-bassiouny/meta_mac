@@ -24,11 +24,15 @@ public class ParentResponse {
     }
 
     public String getMassage() {
-        if (message !=null &&!message.isEmpty())
-            return message;
-        else if (massage !=null &&!massage.isEmpty())
-            return massage;
-        else
+        try {
+            if (message != null && !message.isEmpty())
+                return message;
+            else if (massage != null && !massage.isEmpty())
+                return massage;
+            else
+                return "Sorry we can\'t load data";
+        }catch (Exception e){
             return "Sorry we can\'t load data";
+        }
     }
 }

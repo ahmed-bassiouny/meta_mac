@@ -62,10 +62,8 @@ public class RetrofitRequest {
                         userRetrofitResponse.onSuccess(response.body().getUser());
                     } else {
                         userRetrofitResponse.onFailed("Email Or Password is incorrect , please retry!");
-                        Log.i(TAG, response.body().getMassage());
                     }
                 } else {
-                    Log.e("onResponse: ", errorMessageForDevelopment);
                     userRetrofitResponse.onFailed(errorMessageForDevelopment);
                 }
             }
@@ -73,7 +71,6 @@ public class RetrofitRequest {
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 userRetrofitResponse.onFailed(INTERNET_CONNECTION);
-                Log.i(TAG, t.getLocalizedMessage() + "");
             }
         });
     }
@@ -88,10 +85,8 @@ public class RetrofitRequest {
                         listRetrofitResponse.onSuccess(response.body().getPosts());
                     } else {
                         listRetrofitResponse.onFailed(response.body().getMassage());
-                        Log.e(TAG, response.body().getMassage());
                     }
                 } else {
-                    Log.e("onResponse: ", errorMessageForDevelopment);
                     listRetrofitResponse.onFailed(errorMessageForDevelopment);
                 }
             }
@@ -99,7 +94,6 @@ public class RetrofitRequest {
             @Override
             public void onFailure(Call<PostListResponse> call, Throwable t) {
                 listRetrofitResponse.onFailed(INTERNET_CONNECTION);
-                Log.e(TAG, t.getLocalizedMessage() + "");
             }
         });
     }
@@ -119,10 +113,8 @@ public class RetrofitRequest {
                         retrofitResponse.onSuccess(response.body().getPost());
                     } else {
                         retrofitResponse.onFailed(response.body().getMassage());
-                        Log.e(TAG, response.body().getMassage());
                     }
                 } else {
-                    Log.e("onResponse: ", errorMessageForDevelopment);
                     retrofitResponse.onFailed(errorMessageForDevelopment);
                 }
             }
@@ -130,7 +122,6 @@ public class RetrofitRequest {
             @Override
             public void onFailure(Call<PostResponse> call, Throwable t) {
                 retrofitResponse.onFailed(INTERNET_CONNECTION);
-                Log.e(TAG, t.getLocalizedMessage() + "");
             }
         });
     }
@@ -153,10 +144,8 @@ public class RetrofitRequest {
                         retrofitResponse.onSuccess(response.body().getSpeakers());
                     } else {
                         retrofitResponse.onFailed(response.body().getMassage());
-                        Log.e(TAG, response.body().getMassage());
                     }
                 } else {
-                    Log.e("onResponse: ", errorMessageForDevelopment);
                     retrofitResponse.onFailed(errorMessageForDevelopment);
                 }
             }
@@ -164,7 +153,6 @@ public class RetrofitRequest {
             @Override
             public void onFailure(Call<SpeakerListResponse> call, Throwable t) {
                 retrofitResponse.onFailed(INTERNET_CONNECTION);
-                Log.e(TAG, t.getLocalizedMessage() + "");
             }
         });
     }
@@ -184,10 +172,8 @@ public class RetrofitRequest {
                         retrofitResponse.onSuccess(response.body().getAttendeesWithLetter());
                     } else {
                         retrofitResponse.onFailed(response.body().getMassage());
-                        Log.e(TAG, response.body().getMassage());
                     }
                 } else {
-                    Log.e("onResponse: ", errorMessageForDevelopment);
                     retrofitResponse.onFailed(errorMessageForDevelopment);
                 }
             }
@@ -195,7 +181,6 @@ public class RetrofitRequest {
             @Override
             public void onFailure(Call<AttendeeListResponse> call, Throwable t) {
                 retrofitResponse.onFailed(INTERNET_CONNECTION);
-                Log.e(TAG, t.getLocalizedMessage() + "");
             }
         });
     }
@@ -210,10 +195,8 @@ public class RetrofitRequest {
                         retrofitResponse.onSuccess(response.body().getAgendaList());
                     } else {
                         retrofitResponse.onFailed(response.body().getMassage());
-                        Log.e(TAG, response.body().getMassage());
                     }
                 } else {
-                    Log.e("onResponse: ", errorMessageForDevelopment);
                     retrofitResponse.onFailed(errorMessageForDevelopment);
                 }
             }
@@ -221,7 +204,6 @@ public class RetrofitRequest {
             @Override
             public void onFailure(Call<AgendaListResponse> call, Throwable t) {
                 retrofitResponse.onFailed(INTERNET_CONNECTION);
-                Log.e(TAG, t.getLocalizedMessage() + "");
             }
         });
     }
@@ -236,10 +218,8 @@ public class RetrofitRequest {
                         retrofitResponse.onSuccess(response.body().getMessageList());
                     } else {
                         retrofitResponse.onFailed(response.body().getMassage());
-                        Log.e(TAG, response.body().getMassage());
                     }
                 } else {
-                    Log.e("onResponse: ", errorMessageForDevelopment);
                     retrofitResponse.onFailed(errorMessageForDevelopment);
                 }
             }
@@ -247,7 +227,6 @@ public class RetrofitRequest {
             @Override
             public void onFailure(Call<MessageDetailsResponse> call, Throwable t) {
                 retrofitResponse.onFailed(INTERNET_CONNECTION);
-                Log.e(TAG, t.getLocalizedMessage() + "");
             }
         });
     }
@@ -260,7 +239,6 @@ public class RetrofitRequest {
                 if (response.code() == 200) {
                     retrofitResponse.onSuccess(response.body().getStatus());
                 } else {
-                    Log.e("onResponse: ", errorMessageForDevelopment);
                     retrofitResponse.onFailed(errorMessageForDevelopment);
                 }
             }
@@ -268,7 +246,6 @@ public class RetrofitRequest {
             @Override
             public void onFailure(Call<ParentResponse> call, Throwable t) {
                 retrofitResponse.onFailed(INTERNET_CONNECTION);
-                Log.e(TAG, t.getLocalizedMessage() + "");
             }
         });
 
@@ -380,11 +357,9 @@ public class RetrofitRequest {
                     if (response.body().getStatus()) {
                         retrofitResponse.onSuccess(response.body().getUserNotificationList());
                     } else {
-                        retrofitResponse.onFailed(response.body().getMassage());
-                        Log.e(TAG, response.body().getMassage());
+                        retrofitResponse.onFailed(response.body().getMassage()+"");
                     }
                 } else {
-                    Log.e("onResponse: ", errorMessageForDevelopment);
                     retrofitResponse.onFailed(errorMessageForDevelopment);
                 }
             }

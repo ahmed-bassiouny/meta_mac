@@ -101,15 +101,23 @@ public class LiveVoteFragment extends Fragment {
         childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                setQuestios(dataSnapshot);
-                isNewQuestion(questionActive);
-                progress.setVisibility(View.GONE);
+                try {
+                    setQuestios(dataSnapshot);
+                    isNewQuestion(questionActive);
+                    progress.setVisibility(View.GONE);
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), getString(R.string.cant_load_data), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                setQuestios(dataSnapshot);
-                isNewQuestion(questionActive);
+                try {
+                    setQuestios(dataSnapshot);
+                    isNewQuestion(questionActive);
+                }catch (Exception e){
+                Toast.makeText(getActivity(), getString(R.string.cant_load_data), Toast.LENGTH_SHORT).show();
+            }
             }
 
             @Override
