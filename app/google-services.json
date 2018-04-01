@@ -1,86 +1,27 @@
 {
   "project_info": {
-    "project_number": "747073134588",
-    "firebase_url": "https://eye-care-excellence.firebaseio.com",
-    "project_id": "eye-care-excellence",
-    "storage_bucket": "eye-care-excellence.appspot.com"
+    "project_number": "269241430220",
+    "firebase_url": "https://the-future-is-now-def8d.firebaseio.com",
+    "project_id": "the-future-is-now-def8d",
+    "storage_bucket": "the-future-is-now-def8d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:747073134588:android:eb8455cdd19a2273",
+        "mobilesdk_app_id": "1:269241430220:android:c4dbfbfad778eec8",
         "android_client_info": {
-          "package_name": "com.example.ahmed.eyecare"
+          "package_name": "com.ntam.tech.thefutureisnow"
         }
       },
       "oauth_client": [
         {
-          "client_id": "747073134588-jq585759rmc1pjf8ivqt1ojmiv2cbmld.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.ahmed.eyecare",
-            "certificate_hash": "900767e2af72e47aa354cf69d91ae45de07258dc"
-          }
-        },
-        {
-          "client_id": "747073134588-be1l8rj6tf4qoh6srn50adsv7hj0u0uj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.ahmed.eyecare",
-            "certificate_hash": "f845d2e0be2fe50cf4649b16f788e3897c0c4e9e"
-          }
-        },
-        {
-          "client_id": "747073134588-9i64brnja63env55k6plpfr7ahlanatf.apps.googleusercontent.com",
+          "client_id": "269241430220-eh02oirgaapp2dsjs8r2ri61d2nt165k.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAG2Gi89BAjnnFrJZ_u5V2fnZdoAki3uxU"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "747073134588-sumc1tv1u6pcsf8aa9gabmtij7oei2c6.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.NtamTech.eyeCare"
-              }
-            },
-            {
-              "client_id": "747073134588-9i64brnja63env55k6plpfr7ahlanatf.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:747073134588:android:6cd19ab321f0e9e3",
-        "android_client_info": {
-          "package_name": "com.ntamtech.eyecareexcellence"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "747073134588-9i64brnja63env55k6plpfr7ahlanatf.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAG2Gi89BAjnnFrJZ_u5V2fnZdoAki3uxU"
+          "current_key": "AIzaSyCxwW4XkHDPpbSD_UrIN2n5nCiELxN0etc"
         }
       ],
       "services": {
@@ -90,57 +31,6 @@
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:747073134588:android:a543d50e5f691973",
-        "android_client_info": {
-          "package_name": "com.ntam.tech.eyecare"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "747073134588-golpgi21r2so8qd8uhh1p05q0dq852m4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ntam.tech.eyecare",
-            "certificate_hash": "f845d2e0be2fe50cf4649b16f788e3897c0c4e9e"
-          }
-        },
-        {
-          "client_id": "747073134588-9i64brnja63env55k6plpfr7ahlanatf.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAG2Gi89BAjnnFrJZ_u5V2fnZdoAki3uxU"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "747073134588-sumc1tv1u6pcsf8aa9gabmtij7oei2c6.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.NtamTech.eyeCare"
-              }
-            },
-            {
-              "client_id": "747073134588-9i64brnja63env55k6plpfr7ahlanatf.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
         },
         "ads_service": {
           "status": 2

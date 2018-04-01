@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="ltr"
-    android:background="@color/header"
+    android:background="@color/colorPrimaryDark"
     android:elevation="4dp">
 
 </android.support.v7.widget.Toolbar>

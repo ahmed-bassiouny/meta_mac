@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layoutDirection="ltr"
     android:weightSum="3"
-    tools:context="com.ntam.tech.eyecare.activity.LogisticsActivity">
+    tools:context="com.ntam.tech.thefutureisnow.activity.LogisticsActivity">
 
 
     <include

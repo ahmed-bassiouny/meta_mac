@@ -4,14 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/layer"
-    tools:context="com.ntam.tech.eyecare.activity.Splash">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="50dp"
-        android:src="@drawable/logo"
-        android:layout_gravity="center"/>
+    android:background="@drawable/splash"
+    tools:context="com.ntam.tech.thefutureisnow.activity.Splash">
 
 </FrameLayout>

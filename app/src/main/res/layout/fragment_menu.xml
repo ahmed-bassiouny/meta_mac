@@ -2,9 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/layer"
-    android:orientation="vertical"
-    tools:context="com.ntam.tech.eyecare.fragment.MenuFragment">
+    android:background="@drawable/bg"
+    android:orientation="vertical">
 
 
     <include

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EyeCare</string>
+    <string name="app_name">The future is now</string>
     <string name="sign_in">Sign in</string>
     <string name="user_name">Username</string>
     <string name="mobile">Mobile</string>
@@ -50,7 +50,7 @@
 
     <string name="choose_recipients">Choose Recipients</string>
     <string name="insert_data">Please insert data to this field</string>
-    <string name="notification​_sent​_successfully">Notification​ ​ Sent​ ​ Successfully</string>
+    <string name="notification_sent_successfully">Notification Sent Successfully</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="add_to_my_agenda">Add To My Agenda</string>

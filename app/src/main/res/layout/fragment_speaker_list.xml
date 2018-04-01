@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/layer"
-    tools:context="com.ntam.tech.eyecare.fragment.SpeakerListFragment">
+    android:background="@drawable/bg"
+    tools:context="com.ntam.tech.thefutureisnow.fragment.SpeakerListFragment">
 
     <include
         android:id="@+id/toolbar"

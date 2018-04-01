@@ -52,6 +52,7 @@
                 android:drawableStart="@drawable/ic_session_interest"
                 android:padding="5dp"
                 android:drawablePadding="5dp"
+                android:visibility="gone"
                 android:drawableTint="@color/black"
                 android:gravity="center_vertical"
                 android:textColor="@color/black" />
@@ -67,6 +68,7 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:visibility="gone"
         android:layout_marginEnd="5dp"
         android:id="@+id/iv_add_to_my_agenda"
         android:src="@drawable/calendar"/>
