@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "269241430220",
-    "firebase_url": "https://the-future-is-now-def8d.firebaseio.com",
-    "project_id": "the-future-is-now-def8d",
-    "storage_bucket": "the-future-is-now-def8d.appspot.com"
+    "project_number": "116529824729",
+    "firebase_url": "https://live-voting-55de4.firebaseio.com",
+    "project_id": "live-voting-55de4",
+    "storage_bucket": "live-voting-55de4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:269241430220:android:c4dbfbfad778eec8",
+        "mobilesdk_app_id": "1:116529824729:android:8b0b4eaa83ffd808",
         "android_client_info": {
-          "package_name": "com.ntam.tech.thefutureisnow"
+          "package_name": "com.ntam.tech.metamac"
         }
       },
       "oauth_client": [
         {
-          "client_id": "269241430220-eh02oirgaapp2dsjs8r2ri61d2nt165k.apps.googleusercontent.com",
+          "client_id": "116529824729-jqabago4tctss5a6bqg9njjq9bmdp1d3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ntam.tech.metamac",
+            "certificate_hash": "9d849810e7649df1c78b9aa421dd04fff1c5b45d"
+          }
+        },
+        {
+          "client_id": "116529824729-fho8tbgaf7ige6csmkuamoduhh226ad1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCxwW4XkHDPpbSD_UrIN2n5nCiELxN0etc"
+          "current_key": "AIzaSyBK8YGcEIlCPS5Q59RthGkAl6ih4RDpCiU"
         }
       ],
       "services": {
@@ -29,8 +37,20 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "116529824729-fho8tbgaf7ige6csmkuamoduhh226ad1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "116529824729-7on62t0pgb86p1ap7pk0ri8n92upt2o5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.NtamTech.META-MAC"
+              }
+            }
+          ]
         },
         "ads_service": {
           "status": 2

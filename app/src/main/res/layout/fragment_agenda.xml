@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ntam.tech.thefutureisnow.fragment.AgendaFragment">
+    tools:context="com.ntam.tech.metamac.fragment.AgendaFragment">
 
     <Spinner
         android:layout_width="wrap_content"

@@ -8,7 +8,7 @@
     android:layoutDirection="ltr"
     android:gravity="center"
     android:padding="20dp"
-    tools:context="com.ntam.tech.thefutureisnow.activity.SignIn">
+    tools:context="com.ntam.tech.metamac.activity.SignIn">
 
 
     <ImageView

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ntam.tech.thefutureisnow">
+    package="com.ntam.tech.metamac">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,7 +25,7 @@
 
         <!-- Activity -->
         <activity
-            android:name="com.ntam.tech.thefutureisnow.activity.Splash"
+            android:name="com.ntam.tech.metamac.activity.Splash"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,47 +35,47 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ntam.tech.thefutureisnow.activity.SignIn"
+            android:name="com.ntam.tech.metamac.activity.SignIn"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.ntam.tech.thefutureisnow.activity.MainContainer"
+            android:name="com.ntam.tech.metamac.activity.MainContainer"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ntam.tech.thefutureisnow.dialog.AddPostDialog"
+            android:name="com.ntam.tech.metamac.dialog.AddPostDialog"
             android:theme="@style/AppThemeDialog"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ntam.tech.thefutureisnow.activity.MenuContainer"
+            android:name="com.ntam.tech.metamac.activity.MenuContainer"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ntam.tech.thefutureisnow.activity.AgendaActivity"
+            android:name="com.ntam.tech.metamac.activity.AgendaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.ntam.tech.thefutureisnow.activity.ChatActivity"
+            android:name="com.ntam.tech.metamac.activity.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.ntam.tech.thefutureisnow.activity.UpdateUserInfoActivity"
+            android:name="com.ntam.tech.metamac.activity.UpdateUserInfoActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
-        <activity android:name="com.ntam.tech.thefutureisnow.activity.LogisticsActivity"
+        <activity android:name="com.ntam.tech.metamac.activity.LogisticsActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"></activity>
 
         <!-- Service -->
         <service
-            android:name="com.ntam.tech.thefutureisnow.firebase.MyFirebaseInstanceIDService"
+            android:name="com.ntam.tech.metamac.firebase.MyFirebaseInstanceIDService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name="com.ntam.tech.thefutureisnow.firebase.MyFirebaseMessagingService">
+            android:name="com.ntam.tech.metamac.firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

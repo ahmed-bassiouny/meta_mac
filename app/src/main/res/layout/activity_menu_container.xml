@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     android:id="@+id/main_container"
     android:layoutDirection="ltr"
-    tools:context="com.ntam.tech.thefutureisnow.activity.MenuContainer">
+    tools:context="com.ntam.tech.metamac.activity.MenuContainer">
 
 </android.support.constraint.ConstraintLayout>

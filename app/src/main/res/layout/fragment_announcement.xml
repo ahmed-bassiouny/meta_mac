@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ntam.tech.thefutureisnow.fragment.AnnouncementFragment">
+    tools:context="com.ntam.tech.metamac.fragment.AnnouncementFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

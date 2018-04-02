@@ -6,7 +6,7 @@
     android:background="@drawable/bg"
     android:padding="20dp"
     android:layoutDirection="ltr"
-    tools:context="com.ntam.tech.thefutureisnow.activity.SignIn">
+    tools:context="com.ntam.tech.metamac.activity.SignIn">
 
     <LinearLayout
         android:id="@+id/container"
