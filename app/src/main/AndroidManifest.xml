@@ -25,9 +25,9 @@
 
         <!-- Activity -->
         <activity
-            android:name="com.ntam.tech.metamac.activity.Splash"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:name=".activity.Splash"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,55 +35,58 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ntam.tech.metamac.activity.SignIn"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name="com.ntam.tech.metamac.activity.MainContainer"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.ntam.tech.metamac.dialog.AddPostDialog"
-            android:theme="@style/AppThemeDialog"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.ntam.tech.metamac.activity.MenuContainer"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.ntam.tech.metamac.activity.AgendaActivity"
+            android:name=".activity.SignIn"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.ntam.tech.metamac.activity.ChatActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:name=".activity.MainContainer"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.ntam.tech.metamac.activity.UpdateUserInfoActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.ntam.tech.metamac.activity.LogisticsActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"></activity>
+            android:name=".dialog.AddPostDialog"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeDialog" />
+        <activity
+            android:name=".activity.MenuContainer"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.AgendaActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ChatActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.UpdateUserInfoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.LogisticsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Service -->
         <service
-            android:name="com.ntam.tech.metamac.firebase.MyFirebaseInstanceIDService"
+            android:name=".firebase.MyFirebaseInstanceIDService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name="com.ntam.tech.metamac.firebase.MyFirebaseMessagingService">
+        <service android:name=".firebase.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="a07905da1fb4c784f0369b04a71691297ca15843" />
+
+        <activity android:name=".activity.SessionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

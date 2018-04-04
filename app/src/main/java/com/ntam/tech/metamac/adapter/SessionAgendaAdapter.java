@@ -1,5 +1,6 @@
 package com.ntam.tech.metamac.adapter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ntam.tech.metamac.R;
+import com.ntam.tech.metamac.activity.SessionActivity;
 import com.ntam.tech.metamac.fragment.SessionFragment;
 import com.ntam.tech.metamac.interfaces.OnClickListenerAdapter;
 import com.ntam.tech.metamac.model.Session;
@@ -85,9 +87,9 @@ public class SessionAgendaAdapter extends RecyclerView.Adapter<SessionAgendaAdap
                 @Override
                 public void onClick(View v) {
                     Session session = sessions.get(getAdapterPosition());
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(Constant.INTENT_SESSION_KEY,  session);
-                    Utils.goToFragment(context,new SessionFragment(),"Back",bundle);
+                    Intent intent = new Intent(context, SessionActivity.class);
+                    intent.putExtra(Constant.INTENT_SESSION_KEY,  session);
+                    context.startActivity(intent);
                 }
             });
 
