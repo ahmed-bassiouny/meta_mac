@@ -19,6 +19,7 @@ import com.ntam.tech.metamac.api.modelResponse.ParentResponse;
 import com.ntam.tech.metamac.api.modelResponse.PhotoListResponse;
 import com.ntam.tech.metamac.api.modelResponse.PostListResponse;
 import com.ntam.tech.metamac.api.modelResponse.PostResponse;
+import com.ntam.tech.metamac.api.modelResponse.QuestionResponse;
 import com.ntam.tech.metamac.api.modelResponse.SpeakerListResponse;
 import com.ntam.tech.metamac.model.About;
 import com.ntam.tech.metamac.model.Agenda;
@@ -29,6 +30,7 @@ import com.ntam.tech.metamac.model.Comment;
 import com.ntam.tech.metamac.model.Message;
 import com.ntam.tech.metamac.model.Photo;
 import com.ntam.tech.metamac.model.Post;
+import com.ntam.tech.metamac.model.Question;
 import com.ntam.tech.metamac.model.Speaker;
 import com.ntam.tech.metamac.model.User;
 import com.ntam.tech.metamac.model.UserNotification;
@@ -678,4 +680,56 @@ public class RetrofitRequest {
             }
         });
     }
+
+    public static void answerQuestion(int questionId,int answerId,int userId,final RetrofitResponse retrofitResponse){
+        Call<ParentResponse> response = service.answerQuestion(questionId,answerId,userId);
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().getStatus()) {
+                        retrofitResponse.onSuccess(response.body());
+                    } else {
+                        retrofitResponse.onFailed(response.body().getMassage());
+                        Log.e(TAG, response.body().getMassage());
+                    }
+                } else {
+                    Log.e("onResponse: ", response.body().getMassage()+"");
+                    retrofitResponse.onFailed(errorMessageForDevelopment);
+                }
+            }
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                Log.e("onResponse: ", t.getLocalizedMessage()+"");
+                retrofitResponse.onFailed(errorMessageForDevelopment);
+            }
+        });
+    }
+
+    public static void getQuestion(int questionId,final RetrofitResponse<QuestionResponse> retrofitResponse){
+        Call<QuestionResponse> response = service.getQuestion("get-question?question_id="+questionId);
+        response.enqueue(new Callback<QuestionResponse>() {
+            @Override
+            public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().getStatus()) {
+                        retrofitResponse.onSuccess(response.body());
+                    } else {
+                        retrofitResponse.onFailed(response.body().getMassage());
+                        Log.e(TAG, response.body().getMassage());
+                    }
+                } else {
+                    Log.e("onResponse: ", response.body().getMassage()+"");
+                    retrofitResponse.onFailed(errorMessageForDevelopment);
+                }
+            }
+            @Override
+            public void onFailure(Call<QuestionResponse> call, Throwable t) {
+                Log.e("onResponse: ", t.getLocalizedMessage()+"");
+                retrofitResponse.onFailed(errorMessageForDevelopment);
+            }
+        });
+    }
+
+
 }

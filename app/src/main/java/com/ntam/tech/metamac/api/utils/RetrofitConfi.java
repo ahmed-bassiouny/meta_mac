@@ -17,11 +17,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitConfi {
 
     private static Retrofit retrofit;
-    private static final String baseUrl = "http://ntam.tech/istanbul_event_service/";
-
     private RetrofitConfi() {
 
     }
+
+    private static final String baseUrl = "http://ntam.tech/istanbul_event_service/";
 
     public static Retrofit getRetrofit() {
         if (retrofit == null) {

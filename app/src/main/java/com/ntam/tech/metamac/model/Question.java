@@ -1,5 +1,7 @@
 package com.ntam.tech.metamac.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -8,13 +10,11 @@ import java.util.List;
 
 public class Question {
 
-    private String activated;
+    @SerializedName("id")
+    private int id;
+    @SerializedName("body")
     public String question;
+    @SerializedName("answers")
     public List<Answer> answers;
 
-    public boolean getActivated(){
-        if(activated!=null &&activated.equals("1"))
-            return true;
-        return false;
-    }
 }

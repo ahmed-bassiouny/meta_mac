@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 public class SharedPref {
 
     private final static String sharedPrefName = "EyeCare";
+    private final static String QUESTION_ID = "question_id";
 
 
     private static SharedPreferences sharedPref ;
@@ -53,6 +54,17 @@ public class SharedPref {
         editor.putString(MyAccount.EMAIL_KEY,email);
         editor.commit();
     }
+    public static void setQuestionID(Context context, int questionID){
+        getSharedPref(context);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(QUESTION_ID,questionID);
+        editor.commit();
+    }
+    public static int getQuestionID(Context context){
+        getSharedPref(context);
+        return sharedPref.getInt(QUESTION_ID,0);
+    }
+
 
     public static void setToken(Context context,String token){
         getSharedPref(context);

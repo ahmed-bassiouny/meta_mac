@@ -26,12 +26,15 @@ import com.ntam.tech.metamac.api.modelResponse.ParentResponse;
 import com.ntam.tech.metamac.api.modelResponse.PhotoListResponse;
 import com.ntam.tech.metamac.api.modelResponse.PostListResponse;
 import com.ntam.tech.metamac.api.modelResponse.PostResponse;
+import com.ntam.tech.metamac.api.modelResponse.QuestionResponse;
 import com.ntam.tech.metamac.api.modelResponse.SpeakerListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 
 /**
  * Created by ahmed on 10/10/17.
@@ -63,8 +66,8 @@ public interface RetrofitService {
     String UPDATE_USER_INFO = "update_data_after_login.php";
     String UPDATE_MESSAGE_STATUS = "update_message_status.php";
     String UPDATE_BIO = "edit_bio.php";
-    String EDIT_IMAGE ="edit_image.php";
-
+    String EDIT_IMAGE = "edit_image.php";
+    String ANSWER_QUESTION = "answer-question";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -229,14 +232,24 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST(UPDATE_BIO)
     Call<ParentResponse> updateBio(@Field(ParentRequest.USER_ID_KEY) int userId,
-                                             @Field(UserInfoRequest.BIO_KEY) String bio,
-                                             @Field(ParentRequest.EVENT_KEY) int event_id);
+                                   @Field(UserInfoRequest.BIO_KEY) String bio,
+                                   @Field(ParentRequest.EVENT_KEY) int event_id);
 
 
     @FormUrlEncoded
     @POST(EDIT_IMAGE)
     Call<AddPhotoResponse> editUserImage(@Field(ParentRequest.USER_ID_KEY) int userId,
-                                    @Field(ParentRequest.EVENT_KEY) int event_id,
-                                    @Field(UserInfoRequest.IMAGE_KEY) String imagePathEncode);
+                                         @Field(ParentRequest.EVENT_KEY) int event_id,
+                                         @Field(UserInfoRequest.IMAGE_KEY) String imagePathEncode);
+
+
+    @FormUrlEncoded
+    @POST(ANSWER_QUESTION)
+    Call<ParentResponse> answerQuestion(@Field("question_id") int questionId,
+                                          @Field("answer_id") int answerId,
+                                          @Field("user_id") int userId);
+
+    @GET()
+    Call<QuestionResponse> getQuestion(@Url() String url);
 
 }

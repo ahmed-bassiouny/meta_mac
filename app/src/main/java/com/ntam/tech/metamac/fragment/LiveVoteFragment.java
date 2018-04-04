@@ -179,7 +179,7 @@ public class LiveVoteFragment extends Fragment {
                 try {
                     btnSubmit.setEnabled(false);
                     Answer answer = listAnswer.get(indexAnswer);
-                    myRef.child(lastQuestionKey).child("answers").child(indexAnswer + "").child("votes").setValue((answer.votes + 1), new DatabaseReference.CompletionListener() {
+                  /*  myRef.child(lastQuestionKey).child("answers").child(indexAnswer + "").child("votes").setValue((answer.votes + 1), new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                             FirebaseDatabase.getInstance().getReference(Constant.USER).child(String.valueOf(userId)).setValue(lastQuestionKey);
@@ -187,7 +187,7 @@ public class LiveVoteFragment extends Fragment {
                             isNewQuestion(questionActive);
                             btnSubmit.setEnabled(true);
                         }
-                    });
+                    });*/
                 }catch (Exception e){
                     Toast.makeText(getContext(), getString(R.string.cant_send_vote), Toast.LENGTH_SHORT).show();
                     btnSubmit.setEnabled(true);
@@ -196,7 +196,7 @@ public class LiveVoteFragment extends Fragment {
         });
     }
     private void setQuestios(DataSnapshot dataSnapshot){
-        Question item = dataSnapshot.getValue(Question.class);
+     /*   Question item = dataSnapshot.getValue(Question.class);
         if(item.getActivated() && !dataSnapshot.getKey().equals(lastQuestionKey)) {
             lastQuestionKey = dataSnapshot.getKey();
             listAnswer =item.answers;
@@ -221,7 +221,7 @@ public class LiveVoteFragment extends Fragment {
             }
             radioGroupFrame.addView(radioGroup);
             questionActive=true;
-        }
+        }*/
     }
 
     private void loadLastQuestionKeyOpenVote(){

@@ -30,7 +30,7 @@ public class Constant {
 
 
     //FireBase
-    public static final String QUESTION ="questions";
+    public static final String QUESTION ="current_question_id";
     public static final String USER ="users";
 
 
