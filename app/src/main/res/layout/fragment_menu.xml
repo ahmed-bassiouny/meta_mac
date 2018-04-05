@@ -9,16 +9,18 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"
-        android:visibility="gone"></include>
+        android:visibility="gone"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:paddingBottom="40dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -34,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Speaker"
+                    android:text="Speakers"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -195,13 +197,14 @@
                     android:text="Photos"
                     android:textColor="@color/white" />
 
+
                 <TextView
-                    android:id="@+id/tv_twitter"
+                    android:id="@+id/tv_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Twitter"
+                    android:text="Messaging"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -233,14 +236,14 @@
                     android:src="@drawable/photoicon" />
 
                 <ImageView
-                    android:id="@+id/iv_twitter"
+                    android:id="@+id/iv_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_weight="1"
                     android:scaleX=".5"
                     android:scaleY=".5"
-                    android:src="@drawable/twitter" />
+                    android:layout_gravity="center"
+                    android:src="@drawable/envelope" />
             </LinearLayout>
 
             <!---fourth row -->
@@ -253,21 +256,24 @@
                 android:weightSum="3">
 
                 <TextView
-                    android:id="@+id/tv_message"
+                    android:id="@+id/tv_general_information"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Messaging"
+                    android:layout_gravity="center"
+                    android:text="General\nInformation"
                     android:textColor="@color/white" />
 
+
                 <TextView
-                    android:id="@+id/tv_setting"
+                    android:id="@+id/tv_leader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Profile"
+                    android:layout_gravity="center"
+                    android:text="Leadership\nPrinciples"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -276,7 +282,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="About"
+                    android:layout_gravity="center"
+                    android:text="Ferring\nPhilosophy"
                     android:textColor="@color/white" />
             </LinearLayout>
 
@@ -286,55 +293,114 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
 
-                <ImageView
-                    android:id="@+id/iv_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:scaleX=".5"
-                    android:scaleY=".5"
-                    android:layout_gravity="center"
-                    android:src="@drawable/envelope" />
 
                 <ImageView
-                    android:id="@+id/iv_setting"
+                    android:id="@+id/iv_general_information"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:layout_gravity="center"
                     android:scaleX=".6"
                     android:scaleY=".6"
-                    android:src="@drawable/placeholderperson" />
+                    android:src="@drawable/ic_done_all" />
+
+                <ImageView
+                    android:id="@+id/iv_leader"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:scaleX=".6"
+                    android:scaleY=".6"
+                    android:src="@drawable/ic_fingerprint" />
 
                 <ImageView
                     android:id="@+id/iv_about"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_weight="1"
                     android:scaleX=".5"
                     android:layout_gravity="center"
                     android:scaleY=".5"
-                    android:src="@drawable/i" />
+                    android:src="@drawable/about_f" />
             </LinearLayout>
 
             <!---fifth row -->
 
-            <TextView
-                android:id="@+id/tv_admin"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:text="Admin"
-                android:textColor="@color/white" />
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-            <ImageView
-                android:id="@+id/iv_admin"
+
+                <TextView
+                    android:id="@+id/tv_dinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Dinner"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Profile"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_admin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Admin"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleX=".5"
-                android:scaleY=".5"
-                android:src="@drawable/admin" />
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+
+                <ImageView
+                    android:id="@+id/iv_dinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:src="@drawable/resturant" />
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:scaleX=".6"
+                    android:scaleY=".6"
+                    android:src="@drawable/ic_person" />
+                <ImageView
+                    android:id="@+id/iv_admin"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:layout_weight="1"
+                    android:src="@drawable/admin" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

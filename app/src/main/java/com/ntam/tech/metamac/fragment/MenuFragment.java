@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.ntam.tech.metamac.R;
 import com.ntam.tech.metamac.activity.AgendaActivity;
 import com.ntam.tech.metamac.activity.LogisticsActivity;
+import com.ntam.tech.metamac.activity.WebViewRequestsActivity;
 import com.ntam.tech.metamac.api.utils.RetrofitRequest;
 import com.ntam.tech.metamac.api.utils.RetrofitResponse;
 import com.ntam.tech.metamac.utils.Constant;
@@ -37,18 +38,22 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     private ImageView ivAnnouncement;
     private TextView tvLiveVote;
     private TextView tvPhoto;
-    private TextView tvTwitter;
+    private TextView tvDinner;
     private ImageView ivLiveVote;
     private ImageView ivPhoto;
-    private ImageView ivTwitter;
+    private ImageView ivDinner;
     private TextView tvMessage;
-    private TextView tvSetting;
+    private TextView tvProfile;
     private TextView tvAbout;
     private ImageView ivMessage;
-    private ImageView ivSetting;
+    private ImageView ivProfile;
     private ImageView ivAbout;
     private TextView tvAdmin;
     private ImageView ivAdmin;
+    private TextView tvLeader;
+    private ImageView ivLeader;
+    private TextView tvInformation;
+    private ImageView ivInformation;
     private Toolbar mToolbar;
 
 
@@ -96,18 +101,22 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         ivAnnouncement.setOnClickListener(this);
         tvLiveVote.setOnClickListener(this);
         tvPhoto.setOnClickListener(this);
-        tvTwitter.setOnClickListener(this);
+        tvDinner.setOnClickListener(this);
         ivLiveVote.setOnClickListener(this);
         ivPhoto.setOnClickListener(this);
-        ivTwitter.setOnClickListener(this);
+        ivDinner.setOnClickListener(this);
         tvMessage.setOnClickListener(this);
-        tvSetting.setOnClickListener(this);
+        tvProfile.setOnClickListener(this);
         tvAbout.setOnClickListener(this);
         ivMessage.setOnClickListener(this);
-        ivSetting.setOnClickListener(this);
+        ivProfile.setOnClickListener(this);
         ivAbout.setOnClickListener(this);
         tvAdmin.setOnClickListener(this);
         ivAdmin.setOnClickListener(this);
+        tvLeader.setOnClickListener(this);
+        ivLeader.setOnClickListener(this);
+        tvInformation.setOnClickListener(this);
+        ivInformation.setOnClickListener(this);
     }
 
 
@@ -126,19 +135,23 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         ivAnnouncement = view.findViewById(R.id.iv_announcement);
         tvLiveVote = view.findViewById(R.id.tv_live_vote);
         tvPhoto = view.findViewById(R.id.tv_photo);
-        tvTwitter = view.findViewById(R.id.tv_twitter);
+        tvDinner = view.findViewById(R.id.tv_dinner);
         ivLiveVote = view.findViewById(R.id.iv_live_vote);
         ivPhoto = view.findViewById(R.id.iv_photo);
-        ivTwitter = view.findViewById(R.id.iv_twitter);
+        ivDinner = view.findViewById(R.id.iv_dinner);
         tvMessage = view.findViewById(R.id.tv_message);
-        tvSetting = view.findViewById(R.id.tv_setting);
+        tvProfile = view.findViewById(R.id.tv_profile);
         tvAbout = view.findViewById(R.id.tv_about);
         ivMessage = view.findViewById(R.id.iv_message);
-        ivSetting = view.findViewById(R.id.iv_setting);
+        ivProfile = view.findViewById(R.id.iv_profile);
         ivAbout = view.findViewById(R.id.iv_about);
         tvAdmin = view.findViewById(R.id.tv_admin);
         ivAdmin = view.findViewById(R.id.iv_admin);
         mToolbar = view.findViewById(R.id.toolbar);
+        tvLeader = view.findViewById(R.id.tv_leader);
+        ivLeader = view.findViewById(R.id.iv_leader);
+        tvInformation = view.findViewById(R.id.tv_general_information);
+        ivInformation = view.findViewById(R.id.iv_general_information);
     }
 
     @Override
@@ -181,18 +194,22 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             case R.id.iv_photo:
                 Utils.goToFragment(getActivity(), new PhotosFragment(), "Back", null);
                 break;
-            case R.id.tv_twitter:
-            case R.id.iv_twitter:
-                Bundle bundle = new Bundle();
+            case R.id.tv_dinner:
+            case R.id.iv_dinner:
+                /*Bundle bundle = new Bundle();
                 bundle.putInt(Constant.INTENT_TWITTER_ABOUT_KEY,AboutAndTwitterFragment.TWITTER_PAGE);
-                Utils.goToFragment(getActivity(), new AboutAndTwitterFragment(), "Back", bundle);
+                Utils.goToFragment(getActivity(), new AboutAndTwitterFragment(), "Back", bundle);*/
+                Intent intent = new Intent(getContext(), WebViewRequestsActivity.class);
+                intent.putExtra("key",Constant.DINNER_KEY);
+                startActivity(intent);
+
                 break;
             case R.id.tv_message:
             case R.id.iv_message:
                 Utils.goToFragment(getActivity(), new ChatListFragment(), "Back", null);
                 break;
-            case R.id.tv_setting:
-            case R.id.iv_setting:
+            case R.id.tv_profile:
+            case R.id.iv_profile:
                 Utils.goToFragment(getActivity(), new SettingFragment(), "Back", null);
                 break;
             case R.id.tv_about:
@@ -205,6 +222,18 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             case R.id.iv_admin:
                 Utils.goToFragment(getActivity(), new AdminFragment(), "Back", null);
                 break;
+            case R.id.tv_leader:
+            case R.id.iv_leader:
+                Intent in = new Intent(getContext(), WebViewRequestsActivity.class);
+                in.putExtra("key",Constant.LEADERSHIP_KEY);
+                startActivity(in);
+                break;
+            case R.id.tv_general_information:
+            case R.id.iv_general_information:
+                Intent i = new Intent(getContext(), WebViewRequestsActivity.class);
+                i.putExtra("key",Constant.INFORMATION_KEY);
+                startActivity(i);
+                break;
         }
     }
 
@@ -215,8 +244,8 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
             tvAdmin.setVisibility(View.VISIBLE);
             ivAdmin.setVisibility(View.VISIBLE);
         }else {
-            tvAdmin.setVisibility(View.GONE);
-            ivAdmin.setVisibility(View.GONE);
+            tvAdmin.setVisibility(View.INVISIBLE);
+            ivAdmin.setVisibility(View.INVISIBLE);
         }
         getTotalMessage();
     }

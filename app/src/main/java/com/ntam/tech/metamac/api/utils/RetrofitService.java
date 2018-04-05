@@ -28,6 +28,7 @@ import com.ntam.tech.metamac.api.modelResponse.PostListResponse;
 import com.ntam.tech.metamac.api.modelResponse.PostResponse;
 import com.ntam.tech.metamac.api.modelResponse.QuestionResponse;
 import com.ntam.tech.metamac.api.modelResponse.SpeakerListResponse;
+import com.ntam.tech.metamac.api.modelResponse.WebViewResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -67,7 +68,6 @@ public interface RetrofitService {
     String UPDATE_MESSAGE_STATUS = "update_message_status.php";
     String UPDATE_BIO = "edit_bio.php";
     String EDIT_IMAGE = "edit_image.php";
-    String ANSWER_QUESTION = "answer-question";
 
     @FormUrlEncoded
     @POST(LOGIN)
@@ -244,12 +244,16 @@ public interface RetrofitService {
 
 
     @FormUrlEncoded
-    @POST(ANSWER_QUESTION)
+    @POST("answer_question.php")
     Call<ParentResponse> answerQuestion(@Field("question_id") int questionId,
                                           @Field("answer_id") int answerId,
                                           @Field("user_id") int userId);
 
     @GET()
     Call<QuestionResponse> getQuestion(@Url() String url);
+
+
+    @GET()
+    Call<WebViewResponse> getNewRequests(@Url String url);
 
 }

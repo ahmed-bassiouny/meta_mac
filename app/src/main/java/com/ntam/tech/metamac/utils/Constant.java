@@ -26,7 +26,11 @@ public class Constant {
     public static final String INTENT_SHOW_COMMENT_KEY ="show_comment";
     public static final String INTENT_COMMENT_TYPE = "comment_type";
     public static final String INTENT_ITEM_ID_TYPE = "item_id";
+    public static final String KEY = "key";
 
+    public static final int LEADERSHIP_KEY = 1;
+    public static final int DINNER_KEY = 2;
+    public static final int INFORMATION_KEY = 3;
 
 
     //FireBase

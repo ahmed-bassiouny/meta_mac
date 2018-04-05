@@ -50,6 +50,8 @@ public class LiveVoteWithRequestsFragment extends Fragment {
     TextView tvQuestion, tvNoQuestion;
     ProgressBar progress;
     int userId, questionID;
+    private int answerId=0;
+    private int currentQuestionId;
 
     public LiveVoteWithRequestsFragment() {
         // Required empty public constructor
@@ -72,6 +74,33 @@ public class LiveVoteWithRequestsFragment extends Fragment {
     }
 
     private void onClick() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(answerId == 0) {
+                    Toast.makeText(getActivity(), "Please Select Answer", Toast.LENGTH_SHORT).show();
+                    return;
+                }else {
+                    progress.setVisibility(View.VISIBLE);
+                    btnSubmit.setVisibility(View.GONE);
+                    RetrofitRequest.answerQuestion(currentQuestionId, answerId, userId, new RetrofitResponse() {
+                        @Override
+                        public void onSuccess(Object o) {
+                            progress.setVisibility(View.GONE);
+                            SharedPref.setQuestionID(getContext(),currentQuestionId);
+                            getActivity().onBackPressed();
+                        }
+
+                        @Override
+                        public void onFailed(String errorMessage) {
+                            progress.setVisibility(View.GONE);
+                            btnSubmit.setVisibility(View.VISIBLE);
+                            Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override
@@ -145,6 +174,7 @@ public class LiveVoteWithRequestsFragment extends Fragment {
                 // new question
                 // make request
                 if (currentQuestionID != questionID) {
+                    currentQuestionId = currentQuestionID;
                     RetrofitRequest.getQuestion(currentQuestionID, new RetrofitResponse<QuestionResponse>() {
                         @Override
                         public void onSuccess(QuestionResponse questionResponse) {
@@ -184,7 +214,7 @@ public class LiveVoteWithRequestsFragment extends Fragment {
             radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Toast.makeText(getContext(), finalI + "", Toast.LENGTH_SHORT).show();
+                    answerId = finalI;
                 }
             });
             radioGroup.addView(radioButton);

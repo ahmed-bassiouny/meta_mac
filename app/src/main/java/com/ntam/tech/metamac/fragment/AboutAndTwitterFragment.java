@@ -49,6 +49,12 @@ public class AboutAndTwitterFragment extends Fragment {
         webView.setWebViewClient(new WebViewClient());
         currentPage=getArguments().getInt(Constant.INTENT_TWITTER_ABOUT_KEY);
         loadData();
+        view.findViewById(R.id.iv_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
     }
 
     private void loadData(){

@@ -21,6 +21,7 @@ import com.ntam.tech.metamac.api.modelResponse.PostListResponse;
 import com.ntam.tech.metamac.api.modelResponse.PostResponse;
 import com.ntam.tech.metamac.api.modelResponse.QuestionResponse;
 import com.ntam.tech.metamac.api.modelResponse.SpeakerListResponse;
+import com.ntam.tech.metamac.api.modelResponse.WebViewResponse;
 import com.ntam.tech.metamac.model.About;
 import com.ntam.tech.metamac.model.Agenda;
 import com.ntam.tech.metamac.model.Announcement;
@@ -35,6 +36,7 @@ import com.ntam.tech.metamac.model.Speaker;
 import com.ntam.tech.metamac.model.User;
 import com.ntam.tech.metamac.model.UserNotification;
 import com.google.gson.Gson;
+import com.ntam.tech.metamac.model.WebViewModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -707,7 +709,7 @@ public class RetrofitRequest {
     }
 
     public static void getQuestion(int questionId,final RetrofitResponse<QuestionResponse> retrofitResponse){
-        Call<QuestionResponse> response = service.getQuestion("get-question?question_id="+questionId);
+        Call<QuestionResponse> response = service.getQuestion("get_question.php?question_id="+questionId);
         response.enqueue(new Callback<QuestionResponse>() {
             @Override
             public void onResponse(Call<QuestionResponse> call, Response<QuestionResponse> response) {
@@ -731,5 +733,30 @@ public class RetrofitRequest {
         });
     }
 
+    public static void getNewRequests(String url,final RetrofitResponse<WebViewModel> retrofitResponse){
+        Call<WebViewResponse> response = service.getNewRequests(url);
+        response.enqueue(new Callback<WebViewResponse>() {
+            @Override
+            public void onResponse(Call<WebViewResponse> call, Response<WebViewResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().getStatus()) {
+                        retrofitResponse.onSuccess(response.body().getWebViewModel());
+                    } else {
+                        retrofitResponse.onFailed(response.body().getMassage());
+                        Log.e(TAG, response.body().getMassage());
+                    }
+                } else {
+                    Log.e("onResponse: ", errorMessageForDevelopment);
+                    retrofitResponse.onFailed(errorMessageForDevelopment);
+                }
+            }
 
+            @Override
+            public void onFailure(Call<WebViewResponse> call, Throwable t) {
+                Log.e("onResponse: ", errorMessageForDevelopment);
+                retrofitResponse.onFailed(errorMessageForDevelopment);
+            }
+        });
+
+    }
 }
