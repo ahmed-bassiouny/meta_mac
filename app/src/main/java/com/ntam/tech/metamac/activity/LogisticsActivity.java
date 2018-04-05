@@ -15,8 +15,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class LogisticsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private final double LAT = 35.158881;
-    private final double LNG =33.371543;
+    private final double LAT = 41.0082376;
+    private final double LNG =28.9783589;
     private Toolbar mToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

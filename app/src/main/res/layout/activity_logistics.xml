@@ -35,7 +35,7 @@
             android:textSize="15sp"
             android:textColor="@color/black"
             android:gravity="center_vertical"
-            android:text="Hotel Name : Hilton Park" />
+            android:text="Hotel Name : " />
 
         <TextView
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
             android:textSize="15sp"
             android:textColor="@color/black"
             android:gravity="center_vertical"
-            android:text="Address : Nicosia"/>
+            android:text="Address : Istanbul, Türkei"/>
     </LinearLayout>
 
 </LinearLayout>
