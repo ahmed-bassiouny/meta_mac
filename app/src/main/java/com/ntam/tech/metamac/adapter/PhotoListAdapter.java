@@ -62,7 +62,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Cuto
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(Constant.INTENT_SHOW_PHOTO_KEY,photo);
+                bundle.putParcelable(Constant.INTENT_SHOW_PHOTO_KEY,photo);
                 Utils.goToFragment(fragmentActivity, new ShowPhotoFragment(), "Back", bundle);
             }
         });

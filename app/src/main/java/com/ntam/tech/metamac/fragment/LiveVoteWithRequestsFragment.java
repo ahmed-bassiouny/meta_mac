@@ -29,6 +29,7 @@ import com.ntam.tech.metamac.api.modelResponse.QuestionResponse;
 import com.ntam.tech.metamac.api.utils.RetrofitRequest;
 import com.ntam.tech.metamac.api.utils.RetrofitResponse;
 import com.ntam.tech.metamac.model.Answer;
+import com.ntam.tech.metamac.model.FirebaseModel;
 import com.ntam.tech.metamac.model.Question;
 import com.ntam.tech.metamac.utils.Constant;
 import com.ntam.tech.metamac.utils.SharedPref;
@@ -52,6 +53,7 @@ public class LiveVoteWithRequestsFragment extends Fragment {
     int userId, questionID;
     private int answerId=0;
     private int currentQuestionId;
+    private FirebaseModel model;
 
     public LiveVoteWithRequestsFragment() {
         // Required empty public constructor
@@ -88,6 +90,9 @@ public class LiveVoteWithRequestsFragment extends Fragment {
                         public void onSuccess(Object o) {
                             progress.setVisibility(View.GONE);
                             SharedPref.setQuestionID(getContext(),currentQuestionId);
+                            FirebaseDatabase.getInstance().getReference()
+                            .child("counter").setValue((model.counter+1));
+                            Toast.makeText(getContext(), "Thanks", Toast.LENGTH_SHORT).show();
                             getActivity().onBackPressed();
                         }
 
@@ -123,7 +128,7 @@ public class LiveVoteWithRequestsFragment extends Fragment {
     }
 
     private void addListener() {
-        myRef = FirebaseDatabase.getInstance().getReference(Constant.QUESTION);
+        myRef = FirebaseDatabase.getInstance().getReference();
         if (valueEventListener != null) ;
         myRef.addValueEventListener(valueEventListener);
 
@@ -142,6 +147,7 @@ public class LiveVoteWithRequestsFragment extends Fragment {
             btnSubmit.setVisibility(View.GONE);
             tvNoQuestion.setVisibility(View.VISIBLE);
         }
+        progress.setVisibility(View.GONE);
     }
 
     private void findViewById(View view) {
@@ -170,12 +176,17 @@ public class LiveVoteWithRequestsFragment extends Fragment {
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Integer currentQuestionID = dataSnapshot.getValue(Integer.class);
+                model = dataSnapshot.getValue(FirebaseModel.class);
+                // check if current question id not equal 0
+                if(model.current_question_id == 0){
+                    isNewQuestion(false);
+                    return;
+                }
                 // new question
                 // make request
-                if (currentQuestionID != questionID) {
-                    currentQuestionId = currentQuestionID;
-                    RetrofitRequest.getQuestion(currentQuestionID, new RetrofitResponse<QuestionResponse>() {
+                if (model.current_question_id != questionID) {
+                    currentQuestionId = model.current_question_id ;
+                    RetrofitRequest.getQuestion(model.current_question_id, new RetrofitResponse<QuestionResponse>() {
                         @Override
                         public void onSuccess(QuestionResponse questionResponse) {
                             setQuestions(questionResponse.getQuestion());

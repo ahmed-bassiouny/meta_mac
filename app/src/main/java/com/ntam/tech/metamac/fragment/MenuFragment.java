@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,46 +18,22 @@ import com.ntam.tech.metamac.R;
 import com.ntam.tech.metamac.activity.AgendaActivity;
 import com.ntam.tech.metamac.activity.LogisticsActivity;
 import com.ntam.tech.metamac.activity.WebViewRequestsActivity;
+import com.ntam.tech.metamac.adapter.HomeMenuItem;
 import com.ntam.tech.metamac.api.utils.RetrofitRequest;
 import com.ntam.tech.metamac.api.utils.RetrofitResponse;
+import com.ntam.tech.metamac.interfaces.OnClickListenerAdapter;
 import com.ntam.tech.metamac.utils.Constant;
 import com.ntam.tech.metamac.utils.SharedPref;
 import com.ntam.tech.metamac.utils.Utils;
 
-public class MenuFragment extends Fragment implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.Arrays;
 
-    private TextView tvSpeeker;
-    private TextView tvAttendee;
-    private TextView tvAgenda;
-    private ImageView ivSpeeker;
-    private ImageView ivAttendee;
-    private ImageView ivAgenda;
-    private TextView tvLogistics;
-    private TextView tvNewfeed;
-    private TextView tvAnnouncement;
-    private ImageView ivLogistics;
-    private ImageView ivNewfeed;
-    private ImageView ivAnnouncement;
-    private TextView tvLiveVote;
-    private TextView tvPhoto;
-    private TextView tvDinner;
-    private ImageView ivLiveVote;
-    private ImageView ivPhoto;
-    private ImageView ivDinner;
-    private TextView tvMessage;
-    private TextView tvProfile;
-    private TextView tvAbout;
-    private ImageView ivMessage;
-    private ImageView ivProfile;
-    private ImageView ivAbout;
-    private TextView tvAdmin;
-    private ImageView ivAdmin;
-    private TextView tvLeader;
-    private ImageView ivLeader;
-    private TextView tvInformation;
-    private ImageView ivInformation;
-    private Toolbar mToolbar;
-
+public class MenuFragment extends Fragment implements OnClickListenerAdapter {
+    private RecyclerView recyclerView;
+    private ArrayList<Integer> menuImages;
+    private ArrayList<String> menuStrings;
+    private HomeMenuItem adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,194 +46,31 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findViewById(view);
-        onClick();
-        setToolbar();
+
+        initObject();
     }
-
-    private void setToolbar() {
-        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mToolbar.setNavigationIcon(R.drawable.ic_back);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
-
-    }
-
-    private void onClick() {
-        tvSpeeker.setOnClickListener(this);
-        tvAttendee.setOnClickListener(this);
-        tvAgenda.setOnClickListener(this);
-        ivSpeeker.setOnClickListener(this);
-        ivAttendee.setOnClickListener(this);
-        ivAgenda.setOnClickListener(this);
-        tvLogistics.setOnClickListener(this);
-        tvNewfeed.setOnClickListener(this);
-        tvAnnouncement.setOnClickListener(this);
-        ivLogistics.setOnClickListener(this);
-        ivNewfeed.setOnClickListener(this);
-        ivAnnouncement.setOnClickListener(this);
-        tvLiveVote.setOnClickListener(this);
-        tvPhoto.setOnClickListener(this);
-        tvDinner.setOnClickListener(this);
-        ivLiveVote.setOnClickListener(this);
-        ivPhoto.setOnClickListener(this);
-        ivDinner.setOnClickListener(this);
-        tvMessage.setOnClickListener(this);
-        tvProfile.setOnClickListener(this);
-        tvAbout.setOnClickListener(this);
-        ivMessage.setOnClickListener(this);
-        ivProfile.setOnClickListener(this);
-        ivAbout.setOnClickListener(this);
-        tvAdmin.setOnClickListener(this);
-        ivAdmin.setOnClickListener(this);
-        tvLeader.setOnClickListener(this);
-        ivLeader.setOnClickListener(this);
-        tvInformation.setOnClickListener(this);
-        ivInformation.setOnClickListener(this);
-    }
-
 
     private void findViewById(View view) {
-        tvSpeeker = view.findViewById(R.id.tv_speeker);
-        tvAttendee = view.findViewById(R.id.tv_attendee);
-        tvAgenda = view.findViewById(R.id.tv_agenda);
-        ivSpeeker = view.findViewById(R.id.iv_speeker);
-        ivAttendee = view.findViewById(R.id.iv_attendee);
-        ivAgenda = view.findViewById(R.id.iv_agenda);
-        tvLogistics = view.findViewById(R.id.tv_logistics);
-        tvNewfeed = view.findViewById(R.id.tv_newfeed);
-        tvAnnouncement = view.findViewById(R.id.tv_announcement);
-        ivLogistics = view.findViewById(R.id.iv_logistics);
-        ivNewfeed = view.findViewById(R.id.iv_newfeed);
-        ivAnnouncement = view.findViewById(R.id.iv_announcement);
-        tvLiveVote = view.findViewById(R.id.tv_live_vote);
-        tvPhoto = view.findViewById(R.id.tv_photo);
-        tvDinner = view.findViewById(R.id.tv_dinner);
-        ivLiveVote = view.findViewById(R.id.iv_live_vote);
-        ivPhoto = view.findViewById(R.id.iv_photo);
-        ivDinner = view.findViewById(R.id.iv_dinner);
-        tvMessage = view.findViewById(R.id.tv_message);
-        tvProfile = view.findViewById(R.id.tv_profile);
-        tvAbout = view.findViewById(R.id.tv_about);
-        ivMessage = view.findViewById(R.id.iv_message);
-        ivProfile = view.findViewById(R.id.iv_profile);
-        ivAbout = view.findViewById(R.id.iv_about);
-        tvAdmin = view.findViewById(R.id.tv_admin);
-        ivAdmin = view.findViewById(R.id.iv_admin);
-        mToolbar = view.findViewById(R.id.toolbar);
-        tvLeader = view.findViewById(R.id.tv_leader);
-        ivLeader = view.findViewById(R.id.iv_leader);
-        tvInformation = view.findViewById(R.id.tv_general_information);
-        ivInformation = view.findViewById(R.id.iv_general_information);
+        recyclerView = view.findViewById(R.id.recycler);
+        initObject();
+
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_speeker:
-            case R.id.iv_speeker:
-                Utils.goToFragment(getActivity(), new SpeakerListFragment(), "Back", null);
-                break;
-            case R.id.tv_attendee:
-            case R.id.iv_attendee:
-                Utils.goToFragment(getActivity(), new AttendeeListFragment(), "Back", null);
-                break;
-
-            case R.id.tv_agenda:
-            case R.id.iv_agenda:
-                getActivity().startActivity(new Intent(getContext(), AgendaActivity.class));
-                break;
-
-            case R.id.tv_logistics:
-            case R.id.iv_logistics:
-                getActivity().startActivity(new Intent(getContext(), LogisticsActivity.class));
-                break;
-
-            case R.id.tv_newfeed:
-            case R.id.iv_newfeed:
-                Utils.goToFragment(getActivity(), new NewsFeedFragment(), "Back", null);
-                break;
-
-            case R.id.tv_announcement:
-            case R.id.iv_announcement:
-                Utils.goToFragment(getActivity(), new NotificationListFragment(), "Back", null);
-                break;
-            case R.id.tv_live_vote:
-            case R.id.iv_live_vote:
-                Utils.goToFragment(getActivity(), new LiveVoteWithRequestsFragment(), "Back", null);
-                break;
-
-            case R.id.tv_photo:
-            case R.id.iv_photo:
-                Utils.goToFragment(getActivity(), new PhotosFragment(), "Back", null);
-                break;
-            case R.id.tv_dinner:
-            case R.id.iv_dinner:
-                /*Bundle bundle = new Bundle();
-                bundle.putInt(Constant.INTENT_TWITTER_ABOUT_KEY,AboutAndTwitterFragment.TWITTER_PAGE);
-                Utils.goToFragment(getActivity(), new AboutAndTwitterFragment(), "Back", bundle);*/
-                Intent intent = new Intent(getContext(), WebViewRequestsActivity.class);
-                intent.putExtra("key",Constant.DINNER_KEY);
-                startActivity(intent);
-
-                break;
-            case R.id.tv_message:
-            case R.id.iv_message:
-                Utils.goToFragment(getActivity(), new ChatListFragment(), "Back", null);
-                break;
-            case R.id.tv_profile:
-            case R.id.iv_profile:
-                Utils.goToFragment(getActivity(), new SettingFragment(), "Back", null);
-                break;
-            case R.id.tv_about:
-            case R.id.iv_about:
-                Bundle bundle2 = new Bundle();
-                bundle2.putInt(Constant.INTENT_TWITTER_ABOUT_KEY,AboutAndTwitterFragment.ABOUT_PAGE);
-                Utils.goToFragment(getActivity(), new AboutAndTwitterFragment(), "Back", bundle2);
-                break;
-            case R.id.tv_admin:
-            case R.id.iv_admin:
-                Utils.goToFragment(getActivity(), new AdminFragment(), "Back", null);
-                break;
-            case R.id.tv_leader:
-            case R.id.iv_leader:
-                Intent in = new Intent(getContext(), WebViewRequestsActivity.class);
-                in.putExtra("key",Constant.LEADERSHIP_KEY);
-                startActivity(in);
-                break;
-            case R.id.tv_general_information:
-            case R.id.iv_general_information:
-                Intent i = new Intent(getContext(), WebViewRequestsActivity.class);
-                i.putExtra("key",Constant.INFORMATION_KEY);
-                startActivity(i);
-                break;
-        }
-    }
 
     @Override
     public void onStart() {
         super.onStart();
-        if(SharedPref.getMyAccount(getContext()).isAdmin()){
-            tvAdmin.setVisibility(View.VISIBLE);
-            ivAdmin.setVisibility(View.VISIBLE);
-        }else {
-            tvAdmin.setVisibility(View.INVISIBLE);
-            ivAdmin.setVisibility(View.INVISIBLE);
-        }
-        getTotalMessage();
+        if (adapter != null)
+            getTotalMessage();
     }
 
-    private void getTotalMessage(){
+
+    private void getTotalMessage() {
         RetrofitRequest.getMessageCount(SharedPref.getMyAccount(getContext()).getUserId(), new RetrofitResponse<Integer>() {
             @Override
             public void onSuccess(Integer integer) {
-                if(integer > 0)
-                    tvMessage.setText("Messaging ( "+integer+" )");
+                if (integer > 0)
+                    adapter.updateMessageCountText(integer);
             }
 
             @Override
@@ -265,4 +80,121 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+
+    private void initObject() {
+        // set menu image array
+        menuImages = new ArrayList<>();
+        menuStrings = new ArrayList<>();
+
+        menuImages.add(R.drawable.attendees);
+        menuImages.add(R.drawable.notebook);
+        menuImages.add(R.drawable.megaphone);
+        menuImages.add(R.drawable.livevoteicon);
+        menuImages.add(R.drawable.photoicon);
+        menuImages.add(R.drawable.envelope);
+        menuImages.add(R.drawable.ic_done_all);
+        menuImages.add(R.drawable.ic_fingerprint);
+        menuImages.add(R.drawable.about_f);
+        menuImages.add(R.drawable.resturant);
+        menuImages.add(R.drawable.ic_person);
+        menuImages.add(R.drawable.admin);
+        // set menu string array
+        menuStrings.add("Attendees");
+        menuStrings.add("Agenda");
+        menuStrings.add("Announcement");
+        menuStrings.add("Live Vote");
+        menuStrings.add("Photos");
+        menuStrings.add("Messaging");
+        menuStrings.add("General\nInformation");
+        menuStrings.add("Leadership\nPrinciples");
+        menuStrings.add("Ferring\nPhilosophy");
+        menuStrings.add("Dinner");
+        menuStrings.add("Profile");
+        menuStrings.add("Admin");
+        // check image and string array
+        // if not equal throw exception to make app crush
+        if (menuImages.size() != menuStrings.size())
+            throw new RuntimeException("Image Array Not Equal String Array");
+        // set item menu in recycler view
+        setHomeMenu();
+    }
+
+    private void setHomeMenu() {
+        // create gridlayout manager
+        GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
+        // create span size
+        // if last row is one item make it in middle
+        // if last row is two item make it in normal
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (menuImages.size() % 3 != 0) {
+                    return (position == menuImages.size() - 1) ? 2 : 1;
+                } else {
+                    return 1;
+                }
+            }
+        });
+        if (SharedPref.getMyAccount(getContext()).isAdmin()) {
+            menuStrings.remove(menuStrings.size() - 1);
+            menuImages.remove(menuImages.size() - 1);
+        }
+        // create adapter
+        adapter = new HomeMenuItem(this, menuStrings, menuImages);
+        // set layout manager
+        recyclerView.setLayoutManager(manager);
+        // set adapter
+        recyclerView.setAdapter(adapter);
+    }
+
+
+    @Override
+    public void onClick(int position) {
+        switch (position) {
+            case 0:
+                Utils.goToFragment(getActivity(), new AttendeeListFragment(), "Back", null);
+                break;
+            case 1:
+                getActivity().startActivity(new Intent(getContext(), AgendaActivity.class));
+                break;
+            case 2:
+                Utils.goToFragment(getActivity(), new NotificationListFragment(), "Back", null);
+                break;
+            case 3:
+                Utils.goToFragment(getActivity(), new LiveVoteWithRequestsFragment(), "Back", null);
+                break;
+            case 4:
+                Utils.goToFragment(getActivity(), new PhotosFragment(), "Back", null);
+                break;
+            case 5:
+                Utils.goToFragment(getActivity(), new ChatListFragment(), "Back", null);
+                break;
+            case 6:
+                Intent i = new Intent(getContext(), WebViewRequestsActivity.class);
+                i.putExtra("key", Constant.INFORMATION_KEY);
+                startActivity(i);
+                break;
+            case 7:
+                Intent in = new Intent(getContext(), WebViewRequestsActivity.class);
+                in.putExtra("key", Constant.LEADERSHIP_KEY);
+                startActivity(in);
+                break;
+            case 8:
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt(Constant.INTENT_TWITTER_ABOUT_KEY, AboutAndTwitterFragment.ABOUT_PAGE);
+                Utils.goToFragment(getActivity(), new AboutAndTwitterFragment(), "Back", bundle2);
+                break;
+            case 9:
+                Intent intent = new Intent(getContext(), WebViewRequestsActivity.class);
+                intent.putExtra("key", Constant.DINNER_KEY);
+                startActivity(intent);
+                break;
+            case 10:
+                Utils.goToFragment(getActivity(), new SettingFragment(), "Back", null);
+                break;
+            case 11:
+                Utils.goToFragment(getActivity(), new AdminFragment(), "Back", null);
+                break;
+        }
+    }
 }

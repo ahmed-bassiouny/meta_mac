@@ -75,10 +75,10 @@ public class SessionMyAgendaAdapter extends RecyclerView.Adapter<SessionMyAgenda
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Session session = sessions.get(getAdapterPosition());
+                   /* Session session = sessions.get(getAdapterPosition());
                     Intent intent = new Intent(context, SessionActivity.class);
                     intent.putExtra(Constant.INTENT_SESSION_KEY,  session);
-                    context.startActivity(intent);
+                    context.startActivity(intent);*/
                 }
             });
 

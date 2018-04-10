@@ -1,15 +1,19 @@
 package com.ntam.tech.metamac.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by bassiouny on 19/10/17.
  */
 
-public class Photo implements Serializable{
+public class Photo implements Parcelable {
 
     @SerializedName("id")
     private String id;
@@ -73,4 +77,45 @@ public class Photo implements Serializable{
         else
             makeLike=0;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.userId);
+        dest.writeString(this.userName);
+        dest.writeString(this.image);
+        dest.writeString(this.imageTime);
+        dest.writeList(this.comments);
+        dest.writeString(this.numberOfLike);
+        dest.writeInt(this.makeLike);
+    }
+
+    protected Photo(Parcel in) {
+        this.id = in.readString();
+        this.userId = in.readString();
+        this.userName = in.readString();
+        this.image = in.readString();
+        this.imageTime = in.readString();
+        this.comments = new ArrayList<Comment>();
+        in.readList(this.comments, Comment.class.getClassLoader());
+        this.numberOfLike = in.readString();
+        this.makeLike = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
+        @Override
+        public Photo createFromParcel(Parcel source) {
+            return new Photo(source);
+        }
+
+        @Override
+        public Photo[] newArray(int size) {
+            return new Photo[size];
+        }
+    };
 }

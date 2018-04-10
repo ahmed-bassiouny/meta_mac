@@ -66,7 +66,7 @@ public class ShowPhotoFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        photo = (Photo) getArguments().getSerializable(Constant.INTENT_SHOW_PHOTO_KEY);
+        photo =  getArguments().getParcelable(Constant.INTENT_SHOW_PHOTO_KEY);
         if (photo == null)
             getActivity().onBackPressed();
         Utils.setImage(getContext(), photo.getImage(), imageView);
@@ -168,11 +168,12 @@ public class ShowPhotoFragment extends Fragment {
 
     private void shareTextUrl() {
 
+        String url = photo.getImage();
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("text/plain");
         i.putExtra(Intent.EXTRA_SUBJECT, "Share Image");
-        i.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image");
-        i.putExtra(Intent.EXTRA_TEXT, photo.getImage());
+        //i.putExtra(Intent.EXTRA_SUBJECT, "Sharing Image");
+        i.putExtra(Intent.EXTRA_TEXT, url);
         startActivity(Intent.createChooser(i, "Share Image"));
     }
 
