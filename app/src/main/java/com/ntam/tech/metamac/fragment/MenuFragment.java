@@ -100,7 +100,7 @@ public class MenuFragment extends Fragment implements OnClickListenerAdapter {
         menuImages.add(R.drawable.admin);
         // set menu string array
         menuStrings.add("Attendees");
-        menuStrings.add("Agenda");
+        menuStrings.add("AgendaInterface");
         menuStrings.add("Announcement");
         menuStrings.add("Live Vote");
         menuStrings.add("Photos");

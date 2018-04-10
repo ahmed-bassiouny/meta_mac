@@ -19,6 +19,7 @@ import com.ntam.tech.metamac.adapter.SessionAgendaAdapter;
 import com.ntam.tech.metamac.adapter.SessionMyAgendaAdapter;
 import com.ntam.tech.metamac.api.utils.RetrofitRequest;
 import com.ntam.tech.metamac.api.utils.RetrofitResponse;
+import com.ntam.tech.metamac.interfaces.AgendaInterface;
 import com.ntam.tech.metamac.interfaces.OnClickListenerAdapter;
 import com.ntam.tech.metamac.model.Agenda;
 import com.ntam.tech.metamac.model.Session;
@@ -27,7 +28,7 @@ import com.ntam.tech.metamac.utils.SharedPref;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AgendaActivity extends AppCompatActivity implements OnClickListenerAdapter {
+public class AgendaActivity extends AppCompatActivity implements AgendaInterface {
 
     private Toolbar mToolbar;
     private TextView tvAgena;
@@ -203,7 +204,7 @@ public class AgendaActivity extends AppCompatActivity implements OnClickListener
                             sessionMyAgendaAdapter.setData(new ArrayList<Session>());
                             recyclerView.setAdapter(sessionMyAgendaAdapter);
                             spinner.setVisibility(View.GONE);
-                            Toast.makeText(AgendaActivity.this, "No Session in Your Agenda", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AgendaActivity.this, "No Session in Your AgendaInterface", Toast.LENGTH_SHORT).show();
                         }else {
                             spinner.setVisibility(View.VISIBLE);
                         }
@@ -228,7 +229,8 @@ public class AgendaActivity extends AppCompatActivity implements OnClickListener
     }
 
     @Override
-    public void onClick(final int position) {
+    public void addToMyAgenda(int position) {
+        final int currentPosition = position;
         if(!currentTabMyAgenda) {
             Session session = agendaList.get(spinner.getSelectedItemPosition()).getSessions().get(position);
             session.setisMyAgenda(true);
@@ -242,9 +244,9 @@ public class AgendaActivity extends AppCompatActivity implements OnClickListener
 
                 @Override
                 public void onFailed(String errorMessage) {
-                    Session session = agendaList.get(spinner.getSelectedItemPosition()).getSessions().get(position);
+                    Session session = agendaList.get(spinner.getSelectedItemPosition()).getSessions().get(currentPosition);
                     session.setisMyAgenda(false);
-                    agendaList.get(spinner.getSelectedItemPosition()).getSessions().set(position, session);
+                    agendaList.get(spinner.getSelectedItemPosition()).getSessions().set(currentPosition, session);
                     sessionAgendaAdapter.updateData(agendaList.get(spinner.getSelectedItemPosition()).getSessions());
                     Toast.makeText(AgendaActivity.this, R.string.session_added_error, Toast.LENGTH_SHORT).show();
 
@@ -252,5 +254,35 @@ public class AgendaActivity extends AppCompatActivity implements OnClickListener
             });
 
         }
+
+    }
+
+    @Override
+    public void removeToMyAgenda(int position) {
+        final int currentPosition = position;
+        if(!currentTabMyAgenda) {
+            Session session = agendaList.get(spinner.getSelectedItemPosition()).getSessions().get(position);
+            session.setisMyAgenda(false);
+            agendaList.get(spinner.getSelectedItemPosition()).getSessions().set(position, session);
+            sessionAgendaAdapter.updateData(agendaList.get(spinner.getSelectedItemPosition()).getSessions());
+            RetrofitRequest.removeToMyAgenda(SharedPref.getMyAccount(AgendaActivity.this).getUserId(), session.getId(), new RetrofitResponse<Boolean>() {
+                @Override
+                public void onSuccess(Boolean aBoolean) {
+                    Toast.makeText(AgendaActivity.this, R.string.session_removed, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailed(String errorMessage) {
+                    Session session = agendaList.get(spinner.getSelectedItemPosition()).getSessions().get(currentPosition);
+                    session.setisMyAgenda(true);
+                    agendaList.get(spinner.getSelectedItemPosition()).getSessions().set(currentPosition, session);
+                    sessionAgendaAdapter.updateData(agendaList.get(spinner.getSelectedItemPosition()).getSessions());
+                    Toast.makeText(AgendaActivity.this, R.string.session_added_error, Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+        }
+
     }
 }

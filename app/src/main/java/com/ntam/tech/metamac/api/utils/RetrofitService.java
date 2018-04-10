@@ -246,8 +246,8 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("answer_question.php")
     Call<ParentResponse> answerQuestion(@Field("question_id") int questionId,
-                                          @Field("answer_id") int answerId,
-                                          @Field("user_id") int userId);
+                                        @Field("answer_id") int answerId,
+                                        @Field("user_id") int userId);
 
     @GET()
     Call<QuestionResponse> getQuestion(@Url() String url);
@@ -256,4 +256,10 @@ public interface RetrofitService {
     @GET()
     Call<WebViewResponse> getNewRequests(@Url String url);
 
+
+    @FormUrlEncoded
+    @POST("remove_from_my_agenda.php")
+    Call<ParentResponse> removeToMyAgenda(@Field(AddToMyAgenda.SESSION_ID) int sessionId,
+                                          @Field(ParentRequest.USER_ID_KEY) int userId,
+                                          @Field(ParentRequest.EVENT_KEY) int event_id);
 }

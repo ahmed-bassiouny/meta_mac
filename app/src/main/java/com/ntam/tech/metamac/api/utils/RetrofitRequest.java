@@ -759,4 +759,26 @@ public class RetrofitRequest {
         });
 
     }
+
+    public static void removeToMyAgenda(int userId,int sessionId,final RetrofitResponse<Boolean> retrofitResponse){
+        Call<ParentResponse> response = service.removeToMyAgenda(sessionId, userId, ParentRequest.getEventId());
+        response.enqueue(new Callback<ParentResponse>() {
+            @Override
+            public void onResponse(Call<ParentResponse> call, Response<ParentResponse> response) {
+                if (response.code() == 200) {
+                    retrofitResponse.onSuccess(response.body().getStatus());
+                } else {
+                    Log.e("onResponse: ", errorMessageForDevelopment);
+                    retrofitResponse.onFailed(errorMessageForDevelopment);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ParentResponse> call, Throwable t) {
+                retrofitResponse.onFailed(INTERNET_CONNECTION);
+                Log.e(TAG, t.getLocalizedMessage() + "");
+            }
+        });
+
+    }
 }

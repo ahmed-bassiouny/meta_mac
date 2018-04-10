@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.ntam.tech.metamac.R;
 import com.ntam.tech.metamac.activity.SessionActivity;
 import com.ntam.tech.metamac.fragment.SessionFragment;
+import com.ntam.tech.metamac.interfaces.AgendaInterface;
 import com.ntam.tech.metamac.interfaces.OnClickListenerAdapter;
 import com.ntam.tech.metamac.model.Session;
 import com.ntam.tech.metamac.utils.Constant;
@@ -30,11 +31,11 @@ public class SessionAgendaAdapter extends RecyclerView.Adapter<SessionAgendaAdap
 
     List<Session> sessions;
     FragmentActivity context;
-    OnClickListenerAdapter onClickListenerAdapter;
+    AgendaInterface onClickListenerAdapter;
 
     public SessionAgendaAdapter(FragmentActivity context) {
         this.context = context;
-        this.onClickListenerAdapter = (OnClickListenerAdapter) context;
+        this.onClickListenerAdapter = (AgendaInterface) context;
     }
 
     @Override
@@ -51,14 +52,21 @@ public class SessionAgendaAdapter extends RecyclerView.Adapter<SessionAgendaAdap
         holder.tvSessionLocation.setText(session.getVenue());
         holder.tvSessionSpeaker.setText(session.getSessioninterested() + " " + context.getString(R.string.people_interested));
         holder.tvSessionTime.setText(session.getFullTimeSession());
-        if (session.isMyAgenda())
+        if (session.isMyAgenda()) {
             holder.ivAddToMyAgenda.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.calendarred));
+            holder.ivAddToMyAgenda.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListenerAdapter.removeToMyAgenda(position);
+                }
+            });
+        }
         else {
             holder.ivAddToMyAgenda.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.calendar));
             holder.ivAddToMyAgenda.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickListenerAdapter.onClick(position);
+                    onClickListenerAdapter.addToMyAgenda(position);
                 }
             });
         }
