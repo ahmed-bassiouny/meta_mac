@@ -63,7 +63,8 @@ public class NotificationListFragment extends Fragment {
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+                if(getActivity() != null)
+                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                 progress.setVisibility(View.GONE);
             }
         });

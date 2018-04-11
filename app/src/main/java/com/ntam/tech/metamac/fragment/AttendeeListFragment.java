@@ -122,9 +122,14 @@ public class AttendeeListFragment extends Fragment {
             }
 
             @Override
-            public void onFailed(String errorMessage) {
-                progress.setVisibility(View.GONE);
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+            public void onFailed(final String errorMessage) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

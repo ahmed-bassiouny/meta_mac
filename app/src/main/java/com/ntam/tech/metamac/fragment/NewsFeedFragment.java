@@ -189,7 +189,8 @@ public class NewsFeedFragment extends Fragment implements OnClickPostAdapter {
 
             @Override
             public void onFailed(String errorMessage) {
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                if(getActivity() !=null)
+                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                 progress.setVisibility(View.GONE);
             }
         });

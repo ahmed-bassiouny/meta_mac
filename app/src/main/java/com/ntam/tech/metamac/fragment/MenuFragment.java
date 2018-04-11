@@ -122,20 +122,8 @@ public class MenuFragment extends Fragment implements OnClickListenerAdapter {
     private void setHomeMenu() {
         // create gridlayout manager
         GridLayoutManager manager = new GridLayoutManager(getContext(), 3);
-        // create span size
-        // if last row is one item make it in middle
-        // if last row is two item make it in normal
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                if (menuImages.size() % 3 != 0) {
-                    return (position == menuImages.size() - 1) ? 2 : 1;
-                } else {
-                    return 1;
-                }
-            }
-        });
-        if (SharedPref.getMyAccount(getContext()).isAdmin()) {
+        // check if user not admin remove last item
+        if (!SharedPref.getMyAccount(getContext()).isAdmin()) {
             menuStrings.remove(menuStrings.size() - 1);
             menuImages.remove(menuImages.size() - 1);
         }
