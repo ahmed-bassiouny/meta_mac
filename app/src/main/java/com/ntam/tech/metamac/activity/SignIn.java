@@ -85,7 +85,7 @@ public class SignIn extends AppCompatActivity {
             progress.setVisibility(View.VISIBLE);
         }else {
             btnSignin.setEnabled(true);
-            progress.setVisibility(View.GONE);
+            progress.setVisibility(View.INVISIBLE);
         }
     }
 

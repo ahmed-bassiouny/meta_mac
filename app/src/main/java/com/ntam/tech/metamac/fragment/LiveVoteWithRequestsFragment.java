@@ -53,7 +53,7 @@ public class LiveVoteWithRequestsFragment extends Fragment {
     int userId, questionID;
     private int answerId=0;
     private int currentQuestionId;
-    private FirebaseModel model;
+    private int model;
 
     public LiveVoteWithRequestsFragment() {
         // Required empty public constructor
@@ -90,10 +90,11 @@ public class LiveVoteWithRequestsFragment extends Fragment {
                         public void onSuccess(Object o) {
                             progress.setVisibility(View.GONE);
                             SharedPref.setQuestionID(getContext(),currentQuestionId);
+                            String key  = FirebaseDatabase.getInstance().getReference().child("answers").push().getKey();
                             FirebaseDatabase.getInstance().getReference()
-                            .child("counter").setValue((model.counter+1));
+                            .child("answers").child(key).child("id").setValue(currentQuestionId);
                             Toast.makeText(getContext(), "Thanks", Toast.LENGTH_SHORT).show();
-                            getActivity().onBackPressed();
+                            isNewQuestion(false);
                         }
 
                         @Override
@@ -128,7 +129,7 @@ public class LiveVoteWithRequestsFragment extends Fragment {
     }
 
     private void addListener() {
-        myRef = FirebaseDatabase.getInstance().getReference();
+        myRef = FirebaseDatabase.getInstance().getReference().child("current_question_id");
         if (valueEventListener != null) ;
         myRef.addValueEventListener(valueEventListener);
 
@@ -176,17 +177,17 @@ public class LiveVoteWithRequestsFragment extends Fragment {
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                model = dataSnapshot.getValue(FirebaseModel.class);
+                model = dataSnapshot.getValue(Integer.class);
                 // check if current question id not equal 0
-                if(model.current_question_id == 0){
+                if(model == 0){
                     isNewQuestion(false);
                     return;
                 }
                 // new question
                 // make request
-                if (model.current_question_id != questionID) {
-                    currentQuestionId = model.current_question_id ;
-                    RetrofitRequest.getQuestion(model.current_question_id, new RetrofitResponse<QuestionResponse>() {
+                if (model!= questionID) {
+                    currentQuestionId = model;
+                    RetrofitRequest.getQuestion(model, new RetrofitResponse<QuestionResponse>() {
                         @Override
                         public void onSuccess(QuestionResponse questionResponse) {
                             setQuestions(questionResponse.getQuestion());

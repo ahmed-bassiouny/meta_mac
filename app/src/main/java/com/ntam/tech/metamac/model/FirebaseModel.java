@@ -7,7 +7,5 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class FirebaseModel {
-
-    public int counter;
     public int current_question_id;
 }

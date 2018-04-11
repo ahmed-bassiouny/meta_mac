@@ -80,6 +80,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_signin"
         android:layout_centerInParent="true"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:id="@+id/progress"/>
 </RelativeLayout>
