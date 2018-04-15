@@ -101,14 +101,14 @@ public class MenuFragment extends Fragment implements OnClickListenerAdapter {
         // set menu string array
         menuStrings.add("Attendees");
         menuStrings.add("Agenda");
-        menuStrings.add("Announcement");
-        menuStrings.add("Live Vote");
+        menuStrings.add("Announcements");
+        menuStrings.add("Voting");
         menuStrings.add("Photos");
-        menuStrings.add("Messaging");
+        menuStrings.add("Messages");
         menuStrings.add("General\nInformation");
         menuStrings.add("Leadership\nPrinciples");
         menuStrings.add("Ferring\nPhilosophy");
-        menuStrings.add("Dinner");
+        menuStrings.add("Dinners");
         menuStrings.add("Profile");
         menuStrings.add("Admin");
         // check image and string array

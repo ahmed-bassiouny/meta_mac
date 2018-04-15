@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -66,8 +67,19 @@ public class WebViewRequestsActivity extends AppCompatActivity {
         RetrofitRequest.getNewRequests(url, new RetrofitResponse<WebViewModel>() {
             @Override
             public void onSuccess(WebViewModel webViewModel) {
-                webView.loadDataWithBaseURL("", webViewModel.getBody(), "text/html", "utf-8", "");
-                progress.setVisibility(View.GONE);
+                if(url.equals("leadership_principles.php")){
+                    webView.getSettings().setJavaScriptEnabled(true);
+                    webView.loadUrl("https://docs.google.com/viewer?url="+webViewModel.getPdf());
+                }
+                else
+                    webView.loadDataWithBaseURL("", webViewModel.getBody(), "text/html", "utf-8", "");
+                webView.setWebViewClient(new WebViewClient(){
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        super.onPageFinished(view, url);
+                        progress.setVisibility(View.GONE);
+                    }
+                });
             }
 
             @Override

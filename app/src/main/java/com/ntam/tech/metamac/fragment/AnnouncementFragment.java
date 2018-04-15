@@ -83,7 +83,7 @@ public class AnnouncementFragment extends Fragment {
                     public void onSuccess(Boolean aBoolean) {
                         if(aBoolean){
                             sendNotofication(false);
-                            Toast.makeText(getContext(), getString(R.string.notification​_sent​_successfully), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), getString(R.string.notification_sent_successfully), Toast.LENGTH_SHORT).show();
                             getActivity().onBackPressed();
                         }
                     }

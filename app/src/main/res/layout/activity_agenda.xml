@@ -1,62 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:layoutDirection="ltr"
-    android:layout_height="match_parent">
+    android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:id="@+id/toolbar"
         android:elevation="4dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:padding="10dp"
-            android:textColor="@color/header"
-            android:textStyle="bold"
-            android:layout_margin="10dp"
-            android:id="@+id/tv_agena"
-            android:background="@drawable/borderwhite"
-            android:text="@string/agenda"/>
+            <TextView
+                android:id="@+id/tv_agena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/borderwhite"
+                android:padding="10dp"
+                android:text="@string/agenda"
+                android:textColor="@color/header"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:padding="10dp"
-            android:id="@+id/tv_my_agena"
-            android:layout_margin="10dp"
-            android:background="@null"
-            android:text="@string/my_agenda"/>
+            <TextView
+                android:id="@+id/tv_my_agena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@null"
+                android:padding="10dp"
+                android:text="@string/my_agenda"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
-
-    <Spinner
-        android:layout_width="wrap_content"
+    <!--
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/spinner"
+            android:gravity="center"/>-->
+    <!-- <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         android:layout_gravity="center_horizontal"
+         android:gravity="center_horizontal"
+         android:padding="10dp"
+         android:id="@+id/my_Linear"/>-->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/spinner"
-        android:gravity="center"/>
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextColor="@color/colorPrimary" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
         android:id="@+id/recycleview"
-        android:layout_margin="10dp"
-        android:layout_height="match_parent"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp" />
 
     <ProgressBar
         android:id="@+id/progress"

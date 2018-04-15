@@ -50,7 +50,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.CutomV
             holder.tvName.setVisibility(View.VISIBLE);
             holder.tvName.setText(currentAttendee.getName());
         }
-        if(currentAttendee.getCompany().isEmpty()){
+       /* if(currentAttendee.getCompany().isEmpty()){
             holder.tvCompany.setVisibility(View.GONE);
         }else {
             holder.tvCompany.setVisibility(View.VISIBLE);
@@ -62,7 +62,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.CutomV
             holder.tvPosition.setVisibility(View.VISIBLE);
             holder.tvPosition.setText(currentAttendee.getPosition());
         }
-
+*/
 
         if (!currentAttendee.getImage().isEmpty())
             Utils.setImage(context, currentAttendee.getImage(), holder.ivAvatar);
@@ -99,8 +99,8 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.CutomV
         private TextView tvLetter;
         private CircleImageView ivAvatar;
         private TextView tvName;
-        private TextView tvPosition;
-        private TextView tvCompany;
+        /*private TextView tvPosition;
+        private TextView tvCompany;*/
         private ImageView ivChat;
 
         public CutomViewHolder(View view) {
@@ -108,8 +108,8 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.CutomV
             tvLetter = view.findViewById(R.id.tv_letter);
             ivAvatar = view.findViewById(R.id.iv_avatar);
             tvName = view.findViewById(R.id.tv_name);
-            tvPosition = view.findViewById(R.id.tv_position);
-            tvCompany = view.findViewById(R.id.tv_company);
+            /*tvPosition = view.findViewById(R.id.tv_position);
+            tvCompany = view.findViewById(R.id.tv_company);*/
             ivChat = view.findViewById(R.id.iv_chat);
         }
     }

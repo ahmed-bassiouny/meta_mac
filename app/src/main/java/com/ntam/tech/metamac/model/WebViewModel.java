@@ -12,10 +12,17 @@ public class WebViewModel {
     private String body;
     @SerializedName("image")
     private String image;
+    @SerializedName("pdf")
+    private String pdf;
 
     public String getBody() {
         if(body == null)
             body = "";
         return body;
+    }
+    public String getPdf(){
+        if(pdf == null)
+            pdf = "";
+        return pdf;
     }
 }

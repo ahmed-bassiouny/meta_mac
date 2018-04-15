@@ -1,5 +1,7 @@
 package com.ntam.tech.metamac.activity;
 
+import android.support.design.widget.TabItem;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +9,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,11 +43,12 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
     // adapter
     SessionAgendaAdapter sessionAgendaAdapter;
     SessionMyAgendaAdapter sessionMyAgendaAdapter;
-    AgendaDayAdapter agendaDayAdapter;
+    //AgendaDayAdapter agendaDayAdapter;
     List<Agenda> agendaList;
     List<Agenda> myAgendaList;
+    TabLayout tabLayout;
+    //Spinner spinner;
 
-    Spinner spinner;
     RecyclerView recyclerView;
     boolean currentTabMyAgenda = false;
 
@@ -52,7 +58,7 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
         setContentView(R.layout.activity_agenda);
         findViewById();
         onClick();
-        agendaDayAdapter = new AgendaDayAdapter(this);
+        //agendaDayAdapter = new AgendaDayAdapter(this);
         loadAgenda();
     }
 
@@ -82,7 +88,37 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
                 loadMyAgenda();
             }
         });
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (currentTabMyAgenda) {
+                    if (myAgendaList != null) {
+                        if (sessionMyAgendaAdapter == null)
+                            sessionMyAgendaAdapter = new SessionMyAgendaAdapter(AgendaActivity.this);
+                        sessionMyAgendaAdapter.setData(myAgendaList.get(tab.getPosition()).getSessions());
+                        recyclerView.setAdapter(sessionMyAgendaAdapter);
+                    }
+                } else {
+                    if (agendaList != null) {
+                        if (sessionAgendaAdapter == null)
+                            sessionAgendaAdapter = new SessionAgendaAdapter(AgendaActivity.this);
+                        sessionAgendaAdapter.setData(agendaList.get(tab.getPosition()).getSessions());
+                        recyclerView.setAdapter(sessionAgendaAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    /*    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
@@ -110,16 +146,39 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });
+        });*/
+    }
+
+    private void selectDay(int day) {
+        try {
+            if (currentTabMyAgenda) {
+                if (myAgendaList != null) {
+                    if (sessionMyAgendaAdapter == null)
+                        sessionMyAgendaAdapter = new SessionMyAgendaAdapter(AgendaActivity.this);
+                    sessionMyAgendaAdapter.setData(myAgendaList.get(day).getSessions());
+                    recyclerView.setAdapter(sessionMyAgendaAdapter);
+                }
+            } else {
+                if (agendaList != null) {
+                    if (sessionAgendaAdapter == null)
+                        sessionAgendaAdapter = new SessionAgendaAdapter(AgendaActivity.this);
+                    sessionAgendaAdapter.setData(agendaList.get(day).getSessions());
+                    recyclerView.setAdapter(sessionAgendaAdapter);
+                }
+            }
+        } catch (Exception e) {
+            finish();
+        }
     }
 
     private void findViewById() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        spinner = (Spinner) findViewById(R.id.spinner);
+        //spinner = (Spinner) findViewById(R.id.spinner);
         progress = (ProgressBar) findViewById(R.id.progress);
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         tvAgena = (TextView) findViewById(R.id.tv_agena);
         tvMyAgena = (TextView) findViewById(R.id.tv_my_agena);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -140,17 +199,25 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
             @Override
             public void onSuccess(List<Agenda> agendas) {
                 agendaList = agendas;
-                ArrayList<String> days = new ArrayList<>();
-                for (Agenda item : agendas) {
-                    days.add(item.getDayNumber() + "," + item.getEventDate());
+                //ArrayList<String> days = new ArrayList<>();
+                tabLayout.removeAllTabs();
+                for (int i = 0; i < agendas.size(); i++) {
+                    //days.add(item.getDayNumber() + "," + item.getEventDate());
+                    //final TabItem b = new TabItem(AgendaActivity.this);
+                    TabLayout.Tab item = tabLayout.newTab();
+                    item.setText(agendas.get(i).getEventDate());
+                    tabLayout.addTab(tabLayout.newTab().setText(agendas.get(i).getEventDate()));
+
+
                 }
-                agendaDayAdapter.setDays(days);
-                spinner.setAdapter(agendaDayAdapter);
+                //agendaDayAdapter.setDays(days);
+               /* spinner.setAdapter(agendaDayAdapter);
                 if(days.size()==1){
                     spinner.setEnabled(false);
                 }else{
                     spinner.setEnabled(true);
-                }
+                }*/
+                //selectDay(0);
                 showData(true);
             }
 
@@ -184,31 +251,43 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
                         myAgendaList.add(agenda);
                     }
                 }
-                final ArrayList<String> days = new ArrayList<>();
-                for (Agenda item : myAgendaList) {
-                    days.add(item.getDayNumber() + "," + item.getEventDate());
-                }
+                //final ArrayList<String> days = new ArrayList<>();
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        agendaDayAdapter.setDays(days);
-                        spinner.setAdapter(agendaDayAdapter);
+                        tabLayout.removeAllTabs();
+                        for (int i = 0; i < myAgendaList.size(); i++) {
+                            //days.add(item.getDayNumber() + "," + item.getEventDate());
+                            TabLayout.Tab item = tabLayout.newTab();
+                            item.setText(myAgendaList.get(i).getEventDate());
+                            tabLayout.addTab(tabLayout.newTab().setText(myAgendaList.get(i).getEventDate()));
+
+                        }
+                        //agendaDayAdapter.setDays(days);
+                       /* spinner.setAdapter(agendaDayAdapter);
                         if(days.size()==1){
                             spinner.setEnabled(false);
                         }else{
                             spinner.setEnabled(true);
-                        }
-                        if(days.size()==0){
+                        }*/
+                        /*if (days.size() == 0) {
                             if (sessionMyAgendaAdapter == null)
                                 sessionMyAgendaAdapter = new SessionMyAgendaAdapter(AgendaActivity.this);
                             sessionMyAgendaAdapter.setData(new ArrayList<Session>());
                             recyclerView.setAdapter(sessionMyAgendaAdapter);
-                            spinner.setVisibility(View.GONE);
-                            Toast.makeText(AgendaActivity.this, "No Session in Your AgendaInterface", Toast.LENGTH_SHORT).show();
+                            linearLayout.setVisibility(View.GONE);
+                            Toast.makeText(AgendaActivity.this, "No Session in Your Agenda", Toast.LENGTH_SHORT).show();
+                        } else {
+                            linearLayout.setVisibility(View.VISIBLE);
+                        }*/
+                        if(myAgendaList.size()>0) {
+                            //selectDay(0);
+                            showData(true);
                         }else {
-                            spinner.setVisibility(View.VISIBLE);
+                            Toast.makeText(AgendaActivity.this, "No Session in Your Agenda", Toast.LENGTH_SHORT).show();
+                            progress.setVisibility(View.INVISIBLE);
                         }
-                        showData(true);
                     }
                 });
             }
@@ -220,11 +299,11 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
         if (show) {
             progress.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
-            spinner.setVisibility(View.VISIBLE);
+            tabLayout.setVisibility(View.VISIBLE);
         } else {
             progress.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
-            spinner.setVisibility(View.GONE);
+            tabLayout.setVisibility(View.GONE);
         }
     }
 
@@ -232,10 +311,10 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
     public void addToMyAgenda(int position) {
         final int currentPosition = position;
         if(!currentTabMyAgenda) {
-            Session session = agendaList.get(spinner.getSelectedItemPosition()).getSessions().get(position);
+            Session session = agendaList.get(tabLayout.getSelectedTabPosition()).getSessions().get(position);
             session.setisMyAgenda(true);
-            agendaList.get(spinner.getSelectedItemPosition()).getSessions().set(position, session);
-            sessionAgendaAdapter.updateData(agendaList.get(spinner.getSelectedItemPosition()).getSessions());
+            agendaList.get(tabLayout.getSelectedTabPosition()).getSessions().set(position, session);
+            sessionAgendaAdapter.updateData(agendaList.get(tabLayout.getSelectedTabPosition()).getSessions());
             RetrofitRequest.addToMyAgenda(SharedPref.getMyAccount(AgendaActivity.this).getUserId(), session.getId(), new RetrofitResponse<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
@@ -244,10 +323,10 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
 
                 @Override
                 public void onFailed(String errorMessage) {
-                    Session session = agendaList.get(spinner.getSelectedItemPosition()).getSessions().get(currentPosition);
+                    Session session = agendaList.get(tabLayout.getSelectedTabPosition()).getSessions().get(currentPosition);
                     session.setisMyAgenda(false);
-                    agendaList.get(spinner.getSelectedItemPosition()).getSessions().set(currentPosition, session);
-                    sessionAgendaAdapter.updateData(agendaList.get(spinner.getSelectedItemPosition()).getSessions());
+                    agendaList.get(tabLayout.getSelectedTabPosition()).getSessions().set(currentPosition, session);
+                    sessionAgendaAdapter.updateData(agendaList.get(tabLayout.getSelectedTabPosition()).getSessions());
                     Toast.makeText(AgendaActivity.this, R.string.session_added_error, Toast.LENGTH_SHORT).show();
 
                 }
@@ -261,10 +340,10 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
     public void removeToMyAgenda(int position) {
         final int currentPosition = position;
         if(!currentTabMyAgenda) {
-            Session session = agendaList.get(spinner.getSelectedItemPosition()).getSessions().get(position);
+            Session session = agendaList.get(tabLayout.getSelectedTabPosition()).getSessions().get(position);
             session.setisMyAgenda(false);
-            agendaList.get(spinner.getSelectedItemPosition()).getSessions().set(position, session);
-            sessionAgendaAdapter.updateData(agendaList.get(spinner.getSelectedItemPosition()).getSessions());
+            agendaList.get(tabLayout.getSelectedTabPosition()).getSessions().set(position, session);
+            sessionAgendaAdapter.updateData(agendaList.get(tabLayout.getSelectedTabPosition()).getSessions());
             RetrofitRequest.removeToMyAgenda(SharedPref.getMyAccount(AgendaActivity.this).getUserId(), session.getId(), new RetrofitResponse<Boolean>() {
                 @Override
                 public void onSuccess(Boolean aBoolean) {
@@ -273,10 +352,10 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
 
                 @Override
                 public void onFailed(String errorMessage) {
-                    Session session = agendaList.get(spinner.getSelectedItemPosition()).getSessions().get(currentPosition);
+                    Session session = agendaList.get(tabLayout.getSelectedTabPosition()).getSessions().get(currentPosition);
                     session.setisMyAgenda(true);
-                    agendaList.get(spinner.getSelectedItemPosition()).getSessions().set(currentPosition, session);
-                    sessionAgendaAdapter.updateData(agendaList.get(spinner.getSelectedItemPosition()).getSessions());
+                    agendaList.get(tabLayout.getSelectedTabPosition()).getSessions().set(currentPosition, session);
+                    sessionAgendaAdapter.updateData(agendaList.get(tabLayout.getSelectedTabPosition()).getSessions());
                     Toast.makeText(AgendaActivity.this, R.string.session_added_error, Toast.LENGTH_SHORT).show();
 
                 }

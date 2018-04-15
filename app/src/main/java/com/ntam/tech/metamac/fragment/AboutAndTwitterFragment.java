@@ -4,6 +4,7 @@ package com.ntam.tech.metamac.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class AboutAndTwitterFragment extends Fragment {
 
 
     WebView webView;
-    ImageView imageView;
+    //ImageView imageView;
     public static final int ABOUT_PAGE=1;
     public static final int TWITTER_PAGE=2;
     private int currentPage;
@@ -45,7 +46,7 @@ public class AboutAndTwitterFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         webView = view.findViewById(R.id.webview);
-        imageView =view.findViewById(R.id.image_view);
+        //imageView =view.findViewById(R.id.image_view);
         webView.setWebViewClient(new WebViewClient());
         currentPage=getArguments().getInt(Constant.INTENT_TWITTER_ABOUT_KEY);
         loadData();
@@ -62,13 +63,14 @@ public class AboutAndTwitterFragment extends Fragment {
             @Override
             public void onSuccess(About about) {
                 if(currentPage==TWITTER_PAGE){
-                    imageView.setVisibility(View.GONE);
+                    //imageView.setVisibility(View.GONE);
                     webView.loadUrl(Utils.getTwitterUrl(about.getTag()));
                 }else if(currentPage==ABOUT_PAGE){
-                    webView.loadDataWithBaseURL("", about.getContent(), "text/html", "utf-8", "");
-                    Utils.setImage(getContext(),about.getImage(),imageView);
-                }else {
-
+                    webView.getSettings().setJavaScriptEnabled(true);
+                    webView.loadUrl("https://docs.google.com/viewer?url="+about.getPdf());
+                    webView.setVisibility(View.VISIBLE);
+                    Log.e("onSuccess: ", about.getPdf());
+                    //Utils.setImage(getContext(),about.getImage(),imageView);
                 }
             }
 

@@ -14,6 +14,8 @@ public class About {
     private String image;
     @SerializedName("event_tag")
     private String tag;
+    @SerializedName("pdf_file")
+    private String pdf;
 
     public String getImage() {
         return image;
@@ -25,5 +27,9 @@ public class About {
 
     public String getContent() {
         return content;
+    }
+
+    public String getPdf() {
+        return pdf;
     }
 }

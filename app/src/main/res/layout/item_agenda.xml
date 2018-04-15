@@ -22,38 +22,34 @@
                 android:gravity="center_vertical"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/tv_session_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_session_time"
-                android:padding="5dp"
-                android:drawablePadding="5dp"
-                android:drawableTint="@color/black"
-                android:gravity="center_vertical"
-                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tv_session_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_session_location"
-                android:drawableTint="@color/black"
+                android:drawableStart="@drawable/ic_location_"
                 android:padding="5dp"
                 android:gravity="center_vertical"
                 android:drawablePadding="5dp"
-                android:text="@string/main_meeeting_room"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_session_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_access_alarm"
+                android:padding="5dp"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
                 android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tv_session_speaker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_session_interest"
+                android:drawableStart="@drawable/ic_person_"
                 android:padding="5dp"
                 android:drawablePadding="5dp"
-                android:visibility="gone"
-                android:drawableTint="@color/black"
                 android:gravity="center_vertical"
                 android:textColor="@color/black" />
 
@@ -64,8 +60,8 @@
                 android:background="@color/header"/>
         </LinearLayout>
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="5dp"

@@ -51,7 +51,7 @@ public class LiveVoteWithRequestsFragment extends Fragment {
     TextView tvQuestion, tvNoQuestion;
     ProgressBar progress;
     int userId, questionID;
-    private int answerId=0;
+    private int answerId = 0;
     private int currentQuestionId;
     private int model;
 
@@ -79,28 +79,33 @@ public class LiveVoteWithRequestsFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(answerId == 0) {
+                if (answerId == 0) {
                     Toast.makeText(getActivity(), "Please Select Answer", Toast.LENGTH_SHORT).show();
                     return;
-                }else {
+                } else {
                     progress.setVisibility(View.VISIBLE);
                     btnSubmit.setVisibility(View.GONE);
                     RetrofitRequest.answerQuestion(currentQuestionId, answerId, userId, new RetrofitResponse() {
                         @Override
                         public void onSuccess(Object o) {
+
                             progress.setVisibility(View.GONE);
-                            SharedPref.setQuestionID(getContext(),currentQuestionId);
-                            String key  = FirebaseDatabase.getInstance().getReference().child("answers").push().getKey();
+                            SharedPref.setQuestionID(getContext(), currentQuestionId);
+                            String key = FirebaseDatabase.getInstance().getReference().child("answers").push().getKey();
                             FirebaseDatabase.getInstance().getReference()
-                            .child("answers").child(key).child("id").setValue(currentQuestionId);
-                            Toast.makeText(getContext(), "Thanks", Toast.LENGTH_SHORT).show();
+                                    .child("answers").child(key).child("id").setValue(currentQuestionId);
                             isNewQuestion(false);
+                            if (getContext() == null)
+                                return;
+                            Toast.makeText(getContext(), "Thanks", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onFailed(String errorMessage) {
                             progress.setVisibility(View.GONE);
                             btnSubmit.setVisibility(View.VISIBLE);
+                            if (getActivity() == null)
+                                return;
                             Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -161,7 +166,7 @@ public class LiveVoteWithRequestsFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Live Vote");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Voting");
 
         mToolbar.setNavigationIcon(R.drawable.ic_back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -179,17 +184,19 @@ public class LiveVoteWithRequestsFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 model = dataSnapshot.getValue(Integer.class);
                 // check if current question id not equal 0
-                if(model == 0){
+                if (model == 0) {
                     isNewQuestion(false);
                     return;
                 }
                 // new question
                 // make request
-                if (model!= questionID) {
+                if (model != questionID) {
                     currentQuestionId = model;
                     RetrofitRequest.getQuestion(model, new RetrofitResponse<QuestionResponse>() {
                         @Override
                         public void onSuccess(QuestionResponse questionResponse) {
+                            if (questionResponse == null)
+                                return;
                             setQuestions(questionResponse.getQuestion());
                             isNewQuestion(true);
                         }
@@ -207,7 +214,9 @@ public class LiveVoteWithRequestsFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                if(getContext() == null)
+                    return;
+                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         };
     }

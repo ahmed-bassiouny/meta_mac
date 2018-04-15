@@ -49,8 +49,18 @@ public class SessionAgendaAdapter extends RecyclerView.Adapter<SessionAgendaAdap
     public void onBindViewHolder(SessionAgendaAdapter.CutomViewHolder holder, final int position) {
         Session session = sessions.get(position);
         holder.tvSessionName.setText(session.getSessionName());
-        holder.tvSessionLocation.setText(session.getVenue());
-        holder.tvSessionSpeaker.setText(session.getSessioninterested() + " " + context.getString(R.string.people_interested));
+        if(session.getVenue().isEmpty()){
+            holder.tvSessionLocation.setVisibility(View.GONE);
+        }else {
+            holder.tvSessionLocation.setText(session.getVenue());
+            holder.tvSessionLocation.setVisibility(View.VISIBLE);
+        }
+        if(session.getSpeaker().size()==0) {
+            holder.tvSessionSpeaker.setVisibility(View.GONE);
+        }else {
+            holder.tvSessionSpeaker.setVisibility(View.VISIBLE);
+            holder.tvSessionSpeaker.setText(session.getSpeaker().get(0).getName());
+        }
         holder.tvSessionTime.setText(session.getFullTimeSession());
         if (session.isMyAgenda()) {
             holder.ivAddToMyAgenda.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.calendarred));
