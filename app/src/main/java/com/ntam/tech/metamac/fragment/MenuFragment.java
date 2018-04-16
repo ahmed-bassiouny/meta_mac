@@ -93,7 +93,7 @@ public class MenuFragment extends Fragment implements OnClickListenerAdapter {
         menuImages.add(R.drawable.photoicon);
         menuImages.add(R.drawable.envelope);
         menuImages.add(R.drawable.ic_done_all);
-        menuImages.add(R.drawable.ic_fingerprint);
+        menuImages.add(R.drawable.ferring);
         menuImages.add(R.drawable.about_f);
         menuImages.add(R.drawable.resturant);
         menuImages.add(R.drawable.ic_person);
