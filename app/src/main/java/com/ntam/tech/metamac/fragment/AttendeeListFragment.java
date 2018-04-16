@@ -205,7 +205,6 @@ public class AttendeeListFragment extends Fragment {
 
             action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
             action.setDisplayShowTitleEnabled(true); //show the title in the action bar
-            Toast.makeText(getActivity(), "close a", Toast.LENGTH_SHORT).show();
             //hides the keyboard
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(edtSeach.getWindowToken(), 0);
@@ -215,7 +214,6 @@ public class AttendeeListFragment extends Fragment {
 
             isSearchOpened = false;
         } else { //open the search entry
-            Toast.makeText(getActivity(), "close b", Toast.LENGTH_SHORT).show();
             action.setDisplayShowCustomEnabled(true); //enable it to display a
             // custom view in the action bar.
             action.setCustomView(R.layout.search_bar);//add the custom view
@@ -253,10 +251,9 @@ public class AttendeeListFragment extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable s) {
+
                 }
             });
-
-
             edtSeach.requestFocus();
 
             //open the keyboard focused in the edtSearch

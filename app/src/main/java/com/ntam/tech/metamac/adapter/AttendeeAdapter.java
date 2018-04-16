@@ -66,6 +66,8 @@ public class AttendeeAdapter extends RecyclerView.Adapter<AttendeeAdapter.CutomV
 
         if (!currentAttendee.getImage().isEmpty())
             Utils.setImage(context, currentAttendee.getImage(), holder.ivAvatar);
+        else
+            holder.ivAvatar.setImageDrawable(context.getResources().getDrawable(R.drawable.placeholderperson));
         if(position == 0){
             holder.tvLetter.setVisibility(View.VISIBLE);
             holder.tvLetter.setText(currentAttendee.getName().charAt(0)+"");

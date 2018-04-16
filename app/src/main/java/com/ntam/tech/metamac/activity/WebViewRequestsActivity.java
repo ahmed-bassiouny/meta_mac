@@ -42,7 +42,7 @@ public class WebViewRequestsActivity extends AppCompatActivity {
                 break;
             case Constant.DINNER_KEY:
                 // dinners.php
-                getSupportActionBar().setTitle("Dinners");
+                getSupportActionBar().setTitle("Dinnere");
                 url = "dinners.php";
                 break;
             case Constant.INFORMATION_KEY:
