@@ -79,6 +79,8 @@ public class LiveVoteWithRequestsFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(getActivity() == null)
+                    return;
                 if (answerId == 0) {
                     Toast.makeText(getActivity(), "Please Select Answer", Toast.LENGTH_SHORT).show();
                     return;
@@ -88,16 +90,17 @@ public class LiveVoteWithRequestsFragment extends Fragment {
                     RetrofitRequest.answerQuestion(currentQuestionId, answerId, userId, new RetrofitResponse() {
                         @Override
                         public void onSuccess(Object o) {
-
+                            if(getActivity() == null)
+                                return;
                             progress.setVisibility(View.GONE);
-                            SharedPref.setQuestionID(getContext(), currentQuestionId);
+                            SharedPref.setQuestionID(getActivity(), currentQuestionId);
                             String key = FirebaseDatabase.getInstance().getReference().child("answers").push().getKey();
                             FirebaseDatabase.getInstance().getReference()
                                     .child("answers").child(key).child("id").setValue(currentQuestionId);
                             isNewQuestion(false);
-                            if (getContext() == null)
+                            if (getActivity() == null)
                                 return;
-                            Toast.makeText(getContext(), "Thanks", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Thanks", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -117,8 +120,10 @@ public class LiveVoteWithRequestsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        userId = SharedPref.getMyAccount(getContext()).getUserId(); // get id from sharedpref
-        questionID = SharedPref.getQuestionID(getContext());
+        if(getActivity() == null)
+            return;
+        userId = SharedPref.getMyAccount(getActivity()).getUserId(); // get id from sharedpref
+        questionID = SharedPref.getQuestionID(getActivity());
         addListener();
     }
 
@@ -203,6 +208,8 @@ public class LiveVoteWithRequestsFragment extends Fragment {
 
                         @Override
                         public void onFailed(String errorMessage) {
+                            if(getActivity() == null)
+                                return;
                             Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -214,9 +221,9 @@ public class LiveVoteWithRequestsFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                if(getContext() == null)
+                if(getActivity() == null)
                     return;
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         };
     }
@@ -225,11 +232,11 @@ public class LiveVoteWithRequestsFragment extends Fragment {
     private void setQuestions(Question questions) {
         tvQuestion.setText(questions.question);
         radioGroupFrame.removeAllViews();
-        radioGroup = new RadioGroup(getContext());
+        radioGroup = new RadioGroup(getActivity());
         radioGroup.setOrientation(RadioGroup.VERTICAL);
         for (int i = 0; i < questions.answers.size(); i++) {
             Answer answer = questions.answers.get(i);
-            RadioButton radioButton = new RadioButton(getContext());
+            RadioButton radioButton = new RadioButton(getActivity());
             radioButton.setText(answer.getBody());
             final int finalI = answer.getId();
             radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

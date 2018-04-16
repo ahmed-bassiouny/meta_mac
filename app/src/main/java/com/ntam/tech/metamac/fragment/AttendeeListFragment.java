@@ -107,7 +107,7 @@ public class AttendeeListFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     if(pageNumber==Constant.PAGE_NUMBER) {
-                                        attendeeAdapter = new AttendeeAdapter(attendeeList, getContext());
+                                        attendeeAdapter = new AttendeeAdapter(attendeeList, getActivity());
                                         recycleview.setAdapter(attendeeAdapter);
                                     }else {
                                         attendeeAdapter.updateAttendee(attendeeList);
@@ -123,11 +123,13 @@ public class AttendeeListFragment extends Fragment {
 
             @Override
             public void onFailed(final String errorMessage) {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         progress.setVisibility(View.GONE);
-                        Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -139,6 +141,8 @@ public class AttendeeListFragment extends Fragment {
         recycleview = view.findViewById(R.id.recycleview);
         mToolbar = view.findViewById(R.id.toolbar);
         progress = view.findViewById(R.id.progress);
+        if(getActivity() == null)
+            return;
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recycleview.setLayoutManager(linearLayoutManager);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
@@ -199,6 +203,8 @@ public class AttendeeListFragment extends Fragment {
     }
 
     protected void handleMenuSearch() {
+        if(getActivity() == null)
+            return;
         ActionBar action = ((AppCompatActivity) getActivity()).getSupportActionBar(); //get the actionbar
 
         if (isSearchOpened) { //test if the search is open
@@ -206,6 +212,8 @@ public class AttendeeListFragment extends Fragment {
             action.setDisplayShowCustomEnabled(false); //disable a custom view inside the actionbar
             action.setDisplayShowTitleEnabled(true); //show the title in the action bar
             //hides the keyboard
+            if(getActivity() == null)
+                return;
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(edtSeach.getWindowToken(), 0);
 
@@ -257,6 +265,8 @@ public class AttendeeListFragment extends Fragment {
             edtSeach.requestFocus();
 
             //open the keyboard focused in the edtSearch
+            if(getActivity() == null)
+                return;
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(edtSeach, InputMethodManager.SHOW_IMPLICIT);
 

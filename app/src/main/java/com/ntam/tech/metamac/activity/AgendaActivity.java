@@ -30,8 +30,12 @@ import com.ntam.tech.metamac.model.Agenda;
 import com.ntam.tech.metamac.model.Session;
 import com.ntam.tech.metamac.utils.SharedPref;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AgendaActivity extends AppCompatActivity implements AgendaInterface {
 
@@ -205,8 +209,8 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
                     //days.add(item.getDayNumber() + "," + item.getEventDate());
                     //final TabItem b = new TabItem(AgendaActivity.this);
                     TabLayout.Tab item = tabLayout.newTab();
-                    item.setText(agendas.get(i).getEventDate());
-                    tabLayout.addTab(tabLayout.newTab().setText(agendas.get(i).getEventDate()));
+                    item.setText(parseDateToddMMyyyy(agendas.get(i).getEventDate()));
+                    tabLayout.addTab(item);
 
 
                 }
@@ -260,8 +264,8 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
                         for (int i = 0; i < myAgendaList.size(); i++) {
                             //days.add(item.getDayNumber() + "," + item.getEventDate());
                             TabLayout.Tab item = tabLayout.newTab();
-                            item.setText(myAgendaList.get(i).getEventDate());
-                            tabLayout.addTab(tabLayout.newTab().setText(myAgendaList.get(i).getEventDate()));
+                            item.setText(parseDateToddMMyyyy(myAgendaList.get(i).getEventDate()));
+                            tabLayout.addTab(item);
 
                         }
                         //agendaDayAdapter.setDays(days);
@@ -363,5 +367,22 @@ public class AgendaActivity extends AppCompatActivity implements AgendaInterface
 
         }
 
+    }
+    public String parseDateToddMMyyyy(String time) {
+        String inputPattern = "yyyy-MM-dd";
+        String outputPattern = "dd-MM-yyyy";
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern, Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern,Locale.ENGLISH);
+
+        Date date = null;
+        String str = null;
+
+        try {
+            date = inputFormat.parse(time);
+            str = outputFormat.format(date);
+        } catch (ParseException e) {
+            str = "";
+        }
+        return str;
     }
 }

@@ -63,17 +63,21 @@ public class ChatListFragment extends Fragment {
     }
 
     private void loadData() {
-        RetrofitRequest.getChatList(SharedPref.getMyAccount(getContext()).getUserId(), new RetrofitResponse<List<Chat>>() {
+        if(getActivity() == null)
+            return;
+        RetrofitRequest.getChatList(SharedPref.getMyAccount(getActivity()).getUserId(), new RetrofitResponse<List<Chat>>() {
             @Override
             public void onSuccess(final List<Chat> chats) {
                 if (chats.size() == 0) {
                     recycleview.setVisibility(View.GONE);
                     tvNoMessage.setVisibility(View.VISIBLE);
                 }
-                chatListAdapter = new ChatListAdapter(chats, getContext(), new OnClickListenerAdapter() {
+                if(getActivity() == null)
+                    return;
+                chatListAdapter = new ChatListAdapter(chats, getActivity(), new OnClickListenerAdapter() {
                     @Override
                     public void onClick(int position) {
-                        Intent intent= new Intent(getContext(), ChatActivity.class);
+                        Intent intent= new Intent(getActivity(), ChatActivity.class);
                         intent.putExtra(Constant.INTENT_ANOTHER_USER_ID_KEY,chats.get(position).getId());
                         intent.putExtra(Constant.INTENT_ANOTHER_USER_IMAGE_KEY,chats.get(position).getImage());
                         startActivity(intent);
@@ -85,8 +89,10 @@ public class ChatListFragment extends Fragment {
 
             @Override
             public void onFailed(String errorMessage) {
+                if(getActivity() == null)
+                    return;
                 progress.setVisibility(View.GONE);
-                Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }

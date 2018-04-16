@@ -50,13 +50,17 @@ public class SettingFragment extends Fragment {
         llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(getActivity() == null)
+                    return;
                 Utils.goToFragment(getActivity(), new ProfileFragment(), "Back", null);
             }
         });
         llSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPref.clear(getContext());
+                if(getActivity() == null)
+                    return;
+                SharedPref.clear(getActivity());
                 Intent intent = new Intent(getActivity(), SignIn.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
@@ -73,7 +77,7 @@ public class SettingFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Setting");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Settings");
 
         mToolbar.setNavigationIcon(R.drawable.ic_back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

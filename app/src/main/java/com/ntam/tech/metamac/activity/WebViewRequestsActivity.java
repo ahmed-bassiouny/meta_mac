@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -15,6 +16,9 @@ import com.ntam.tech.metamac.api.utils.RetrofitResponse;
 import com.ntam.tech.metamac.model.About;
 import com.ntam.tech.metamac.model.WebViewModel;
 import com.ntam.tech.metamac.utils.Constant;
+import com.ntam.tech.metamac.utils.Utils;
+
+import okhttp3.internal.Util;
 
 public class WebViewRequestsActivity extends AppCompatActivity {
 
@@ -23,6 +27,7 @@ public class WebViewRequestsActivity extends AppCompatActivity {
     private String url;
     private WebView webView;
     private ProgressBar progress;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class WebViewRequestsActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         webView = (WebView) findViewById(R.id.webview);
         progress = (ProgressBar) findViewById(R.id.progress);
+        image = (ImageView) findViewById(R.id.image);
         setSupportActionBar(mToolbar);
 
         switch (key) {
@@ -42,7 +48,7 @@ public class WebViewRequestsActivity extends AppCompatActivity {
                 break;
             case Constant.DINNER_KEY:
                 // dinners.php
-                getSupportActionBar().setTitle("Dinnere");
+                getSupportActionBar().setTitle("Dinner");
                 url = "dinners.php";
                 break;
             case Constant.INFORMATION_KEY:
@@ -71,8 +77,14 @@ public class WebViewRequestsActivity extends AppCompatActivity {
                     webView.getSettings().setJavaScriptEnabled(true);
                     webView.loadUrl("https://docs.google.com/viewer?url="+webViewModel.getPdf());
                 }
-                else
-                    webView.loadDataWithBaseURL("", webViewModel.getBody(), "text/html", "utf-8", "");
+                else {
+                    if(url.equals("Dinner")){
+                        image.setVisibility(View.VISIBLE);
+                        Utils.setImage(WebViewRequestsActivity.this,webViewModel.getImage(),image);
+                    }else {
+                        webView.loadDataWithBaseURL("", webViewModel.getBody(), "text/html", "utf-8", "");
+                    }
+                }
                 webView.setWebViewClient(new WebViewClient(){
                     @Override
                     public void onPageFinished(WebView view, String url) {

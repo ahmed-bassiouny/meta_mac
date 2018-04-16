@@ -59,6 +59,8 @@ public class AdminFragment extends Fragment {
         tvSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(getActivity() == null)
+                    return;
                 Utils.goToFragment(getActivity(), new AnnouncementFragment(), "Back", null);
 
             }

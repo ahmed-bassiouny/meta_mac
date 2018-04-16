@@ -70,7 +70,7 @@ public class AboutAndTwitterFragment extends Fragment {
                     webView.loadUrl("https://docs.google.com/viewer?url="+about.getPdf());
                     webView.setVisibility(View.VISIBLE);
                     Log.e("onSuccess: ", about.getPdf());
-                    //Utils.setImage(getContext(),about.getImage(),imageView);
+                    //Utils.setImage(getActivity(),about.getImage(),imageView);
                 }
             }
 

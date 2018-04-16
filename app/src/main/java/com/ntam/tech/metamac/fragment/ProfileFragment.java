@@ -44,7 +44,7 @@ public class ProfileFragment extends Fragment {
     private TextView tvEditBio;
     //private TextView tvEditUserInfo;
     private EditText /*etEmail, etCountry, etMobile, etHospital,*/ etBio;
-    private ImageView btnSelectImage;
+    //private ImageView btnSelectImage;
 
     private boolean bioEditable = false;
     MyAccount myAccount;
@@ -82,7 +82,7 @@ public class ProfileFragment extends Fragment {
                 editBio();
             }
         });
-        btnSelectImage.setOnClickListener(new View.OnClickListener() {
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ImagePicker.pickImage(ProfileFragment.this, "Select your image:");
@@ -97,7 +97,6 @@ public class ProfileFragment extends Fragment {
         tvName = view.findViewById(R.id.tv_name);
         tvPosition = view.findViewById(R.id.tv_position);
         tvEditBio = view.findViewById(R.id.tv_edit_bio);
-        btnSelectImage = view.findViewById(R.id.btn_select_image);
         progress = view.findViewById(R.id.progress);
         //tvEditUserInfo = view.findViewById(R.id.tv_edit_user_info);
         /*
@@ -178,10 +177,8 @@ public class ProfileFragment extends Fragment {
     private void startUpload(boolean start) {
         if (start) {
             progress.setVisibility(View.VISIBLE);
-            btnSelectImage.setVisibility(View.GONE);
         } else {
             progress.setVisibility(View.GONE);
-            btnSelectImage.setVisibility(View.VISIBLE);
         }
     }
 

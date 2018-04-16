@@ -53,7 +53,9 @@ public class NotificationListFragment extends Fragment {
     }
 
     private void loadData() {
-        RetrofitRequest.getListNotification(SharedPref.getMyAccount(getContext()).getUserId(), new RetrofitResponse<List<UserNotification>>() {
+        if(getActivity() == null)
+            return;
+        RetrofitRequest.getListNotification(SharedPref.getMyAccount(getActivity()).getUserId(), new RetrofitResponse<List<UserNotification>>() {
             @Override
             public void onSuccess(List<UserNotification> userNotifications) {
                 notificationAdapter = new NotificationAdapter(userNotifications);

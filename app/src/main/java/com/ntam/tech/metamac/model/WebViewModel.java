@@ -25,4 +25,10 @@ public class WebViewModel {
             pdf = "";
         return pdf;
     }
+
+    public String getImage() {
+        if(image == null)
+            image = "";
+        return image;
+    }
 }
