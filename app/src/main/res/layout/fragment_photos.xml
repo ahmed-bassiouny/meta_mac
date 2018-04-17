@@ -6,14 +6,27 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"></include>
+        layout="@layout/toolbar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_marginEnd="5dp"/>
+        android:layout_marginEnd="5dp" />
+
+    <TextView
+        android:id="@+id/tv_no_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="No Photo Found "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginEnd="5dp" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -32,19 +45,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:drawablePadding="5dp"
             android:drawableStart="@drawable/ic_camera"
             android:gravity="center"
             android:padding="10dp"
-            android:drawablePadding="5dp"
             android:text="@string/snap_photo"
             android:textColor="@color/white"
             android:textSize="20sp" />
+
         <ProgressBar
+            android:id="@+id/progressupload"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/progressupload"
-            android:visibility="gone"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:visibility="gone" />
     </FrameLayout>
 
 </RelativeLayout>

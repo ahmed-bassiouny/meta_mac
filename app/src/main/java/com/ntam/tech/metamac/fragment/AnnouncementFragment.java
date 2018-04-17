@@ -73,12 +73,8 @@ public class AnnouncementFragment extends Fragment {
                     etBody.setError(getString(R.string.insert_data));
                     return;
                 }
-                HashMap<String, String> hashMap = new HashMap<>();
-                for (String item : announcementSelected) {
-                    hashMap.put("target_id",item);
-                }
                 sendNotofication(true);
-                RetrofitRequest.addNotification(etTitle.getText().toString(), etBody.getText().toString(), hashMap, new RetrofitResponse<Boolean>() {
+                RetrofitRequest.addNotification(etTitle.getText().toString(), etBody.getText().toString(), announcementSelected, new RetrofitResponse<Boolean>() {
                     @Override
                     public void onSuccess(Boolean aBoolean) {
                         if(aBoolean){

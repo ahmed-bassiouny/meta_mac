@@ -43,6 +43,7 @@ public class PhotosFragment extends Fragment implements OnClickListenerAdapter {
     private TextView btnSelectImage;
     int userId;
     private List<Photo> photoList;
+    private TextView tv_no_photo;
 
 
     public PhotosFragment() {
@@ -62,7 +63,7 @@ public class PhotosFragment extends Fragment implements OnClickListenerAdapter {
         super.onViewCreated(view, savedInstanceState);
         findViewById(view);
         onClick();
-        if(getActivity() == null)
+        if (getActivity() == null)
             return;
         userId = SharedPref.getMyAccount(getActivity()).getUserId();
         loadData();
@@ -81,14 +82,14 @@ public class PhotosFragment extends Fragment implements OnClickListenerAdapter {
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(getActivity() == null)
+        if (getActivity() == null)
             return;
         if (resultCode == getActivity().RESULT_OK) {
             startUpload(true);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    if(getActivity() == null)
+                    if (getActivity() == null)
                         return;
                     Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), requestCode, resultCode, data);
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -109,6 +110,7 @@ public class PhotosFragment extends Fragment implements OnClickListenerAdapter {
         progressupload = view.findViewById(R.id.progressupload);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         btnSelectImage = view.findViewById(R.id.btn_select_image);
+        tv_no_photo = view.findViewById(R.id.tv_no_photo);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Photos");
@@ -132,17 +134,21 @@ public class PhotosFragment extends Fragment implements OnClickListenerAdapter {
         RetrofitRequest.getPhotoList(userId, new RetrofitResponse<List<Photo>>() {
             @Override
             public void onSuccess(List<Photo> photos) {
-                if(getActivity() == null)
+                if (getActivity() == null)
                     return;
-                photoList=photos;
-                photoListAdapter = new PhotoListAdapter(getActivity(), photos,PhotosFragment.this);
+                photoList = photos;
+                photoListAdapter = new PhotoListAdapter(getActivity(), photos, PhotosFragment.this);
                 recycleview.setAdapter(photoListAdapter);
+                if (photos.size() == 0) {
+                    tv_no_photo.setVisibility(View.VISIBLE);
+                    recycleview.setVisibility(View.INVISIBLE);
+                }
                 progress.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailed(String errorMessage) {
-                if(getActivity() == null)
+                if (getActivity() == null)
                     return;
                 Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
                 progress.setVisibility(View.GONE);
@@ -165,7 +171,7 @@ public class PhotosFragment extends Fragment implements OnClickListenerAdapter {
             @Override
             public void onFailed(String errorMessage) {
                 startUpload(false);
-                if(getActivity() == null)
+                if (getActivity() == null)
                     return;
                 Toast.makeText(getActivity(), R.string.upload_error, Toast.LENGTH_SHORT).show();
             }
@@ -184,13 +190,13 @@ public class PhotosFragment extends Fragment implements OnClickListenerAdapter {
 
     @Override
     public void onClick(final int position) {
-        final Photo photo =photoList.get(position);
+        final Photo photo = photoList.get(position);
         photo.changeLike();
-        photoListAdapter.updatePhoto(position,photo);
+        photoListAdapter.updatePhoto(position, photo);
         RetrofitRequest.addLikeToPhoto(userId, photo.getId(), new RetrofitResponse<Boolean>() {
             @Override
             public void onSuccess(Boolean aBoolean) {
-                if(!aBoolean) {
+                if (!aBoolean) {
                     onFailed("");
                 }
             }
@@ -198,8 +204,8 @@ public class PhotosFragment extends Fragment implements OnClickListenerAdapter {
             @Override
             public void onFailed(String errorMessage) {
                 photo.changeLike();
-                photoListAdapter.updatePhoto(position,photo);
-                if(getActivity() == null)
+                photoListAdapter.updatePhoto(position, photo);
+                if (getActivity() == null)
                     return;
                 Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
             }

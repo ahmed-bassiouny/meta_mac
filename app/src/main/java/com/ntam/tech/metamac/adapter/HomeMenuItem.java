@@ -73,8 +73,8 @@ public class HomeMenuItem extends RecyclerView.Adapter<HomeMenuItem.GridViewHold
     public void updateMessageCountText(int total){
         int size = gridViewString.size();
         for(int i=0;i<size;i++){
-            if(gridViewString.get(i).contains("Messaging")){
-                gridViewString.set(i,"Messaging ("+total+")");
+            if(gridViewString.get(i).contains("Messages")){
+                gridViewString.set(i,"Messages ("+total+")");
                 notifyItemChanged(i);
             }
         }

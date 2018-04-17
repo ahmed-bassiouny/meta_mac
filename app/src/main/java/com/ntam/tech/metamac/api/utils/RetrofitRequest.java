@@ -38,6 +38,7 @@ import com.ntam.tech.metamac.model.UserNotification;
 import com.google.gson.Gson;
 import com.ntam.tech.metamac.model.WebViewModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -477,10 +478,15 @@ public class RetrofitRequest {
             }
         });
     }
-    public static void addNotification(String title, String body, HashMap<String,String> targets, final RetrofitResponse<Boolean> retrofitResponse){
-        Gson g = new Gson();
-        String targetString = g.toJson(targets);
-        targetString="{\"targets\":["+targetString+"]}";
+    public static void addNotification(String title, String body, ArrayList<String> targets, final RetrofitResponse<Boolean> retrofitResponse){
+        String targetString="{\"targets\":[";
+        for(String item:targets){
+            targetString+="{"+"\"target_id\":\""+item+"\"}";
+            targetString+=",";
+        }
+        targetString = targetString.substring(0, targetString.length() - 1);
+        targetString=targetString+"]}";
+        Log.e( "addNotification: ",targetString );
         Call<ParentResponse> response = service.addNotification(ParentRequest.getEventId(),title,body, AddNotificationRequest.addToDraft(),targetString);
         response.enqueue(new Callback<ParentResponse>() {
             @Override

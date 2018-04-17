@@ -177,6 +177,7 @@ public class AttendeeListFragment extends Fragment {
             }
         });
     }
+/*
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         mSearchAction = menu.findItem(R.id.action_search);
@@ -189,7 +190,8 @@ public class AttendeeListFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
     }
-
+*/
+/*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -200,7 +202,7 @@ public class AttendeeListFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     protected void handleMenuSearch() {
         if(getActivity() == null)
@@ -219,6 +221,8 @@ public class AttendeeListFragment extends Fragment {
 
             //add the search icon in the action bar
             mSearchAction.setIcon(getResources().getDrawable(R.drawable.ic_search));
+            lastCharaterToSearch = "";
+            loadData();
 
             isSearchOpened = false;
         } else { //open the search entry

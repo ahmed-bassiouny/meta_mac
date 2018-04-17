@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ntam.tech.metamac.R;
@@ -32,7 +33,7 @@ public class NotificationListFragment extends Fragment {
     RecyclerView recycleview;
     ProgressBar progress;
     NotificationAdapter notificationAdapter;
-
+    TextView tv_no_photo;
     public NotificationListFragment() {
         // Required empty public constructor
     }
@@ -61,6 +62,10 @@ public class NotificationListFragment extends Fragment {
                 notificationAdapter = new NotificationAdapter(userNotifications);
                 recycleview.setAdapter(notificationAdapter);
                 progress.setVisibility(View.GONE);
+                if(userNotifications.size() == 0){
+                    tv_no_photo.setVisibility(View.VISIBLE);
+                    recycleview.setVisibility(View.INVISIBLE);
+                }
             }
 
             @Override
@@ -76,6 +81,7 @@ public class NotificationListFragment extends Fragment {
         mToolbar = view.findViewById(R.id.toolbar);
         recycleview = view.findViewById(R.id.recycleview);
         progress = view.findViewById(R.id.progress);
+        tv_no_photo = view.findViewById(R.id.tv_no_photo);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);

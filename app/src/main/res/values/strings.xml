@@ -32,7 +32,7 @@
     <string name="my_agenda">My Agenda</string>
 
     <string name="main_meeeting_room">Main Meeting Room</string>
-    <string name="no_question">No Question Active</string>
+    <string name="no_question">No Active Questions</string>
 
 
     <string name="cant_send_vote">Sorry we can\'t send your vote, Please try again</string>

@@ -2,6 +2,7 @@ package com.ntam.tech.metamac.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.ntam.tech.metamac.R;
 import com.ntam.tech.metamac.activity.AgendaActivity;
 import com.ntam.tech.metamac.activity.LogisticsActivity;
+import com.ntam.tech.metamac.activity.ViewImageWithZoomActivity;
 import com.ntam.tech.metamac.activity.WebViewRequestsActivity;
 import com.ntam.tech.metamac.adapter.HomeMenuItem;
 import com.ntam.tech.metamac.api.utils.RetrofitRequest;
@@ -28,12 +30,15 @@ import com.ntam.tech.metamac.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MenuFragment extends Fragment implements OnClickListenerAdapter {
     private RecyclerView recyclerView;
     private ArrayList<Integer> menuImages;
     private ArrayList<String> menuStrings;
     private HomeMenuItem adapter;
+    private Timer timer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +53,12 @@ public class MenuFragment extends Fragment implements OnClickListenerAdapter {
         findViewById(view);
 
         initObject();
+
+        if(timer != null) {
+            return;
+        }
+        timer = new Timer();
+        timer.scheduleAtFixedRate(timerTask, 0, 2000);
     }
 
     private void findViewById(View view) {
@@ -56,14 +67,26 @@ public class MenuFragment extends Fragment implements OnClickListenerAdapter {
 
     }
 
-
     @Override
-    public void onStart() {
-        super.onStart();
-        if (adapter != null)
-            getTotalMessage();
+    public void onPause() {
+        super.onPause();
+        /*timer.cancel();
+        timer = null;*/
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
+    private TimerTask timerTask = new TimerTask() {
+
+        @Override
+        public void run() {
+            getTotalMessage();
+        }
+    };
 
     private void getTotalMessage() {
         RetrofitRequest.getMessageCount(SharedPref.getMyAccount(getContext()).getUserId(), new RetrofitResponse<Integer>() {
@@ -86,14 +109,14 @@ public class MenuFragment extends Fragment implements OnClickListenerAdapter {
         menuImages = new ArrayList<>();
         menuStrings = new ArrayList<>();
 
-        menuImages.add(R.drawable.attendees);
+        menuImages.add(R.drawable.atten);
         menuImages.add(R.drawable.notebook);
         menuImages.add(R.drawable.megaphone);
         menuImages.add(R.drawable.livevoteicon);
         menuImages.add(R.drawable.photoicon);
         menuImages.add(R.drawable.envelope);
         menuImages.add(R.drawable.ic_done_all);
-        menuImages.add(R.drawable.ferring);
+        menuImages.add(R.drawable.f);
         menuImages.add(R.drawable.about_f);
         menuImages.add(R.drawable.resturant);
         menuImages.add(R.drawable.ic_person);
@@ -163,14 +186,17 @@ public class MenuFragment extends Fragment implements OnClickListenerAdapter {
                 startActivity(i);
                 break;
             case 7:
-                Intent in = new Intent(getContext(), WebViewRequestsActivity.class);
+                Intent in = new Intent(getContext(), ViewImageWithZoomActivity.class);
                 in.putExtra("key", Constant.LEADERSHIP_KEY);
                 startActivity(in);
                 break;
-            case 8:
+            case 8:/*
                 Bundle bundle2 = new Bundle();
                 bundle2.putInt(Constant.INTENT_TWITTER_ABOUT_KEY, AboutAndTwitterFragment.ABOUT_PAGE);
-                Utils.goToFragment(getActivity(), new AboutAndTwitterFragment(), "Back", bundle2);
+                Utils.goToFragment(getActivity(), new AboutAndTwitterFragment(), "Back", bundle2);*/
+                Intent inn = new Intent(getContext(), ViewImageWithZoomActivity.class);
+                inn.putExtra("key", 0);
+                startActivity(inn);
                 break;
             case 9:
                 Intent intent = new Intent(getContext(), WebViewRequestsActivity.class);

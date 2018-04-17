@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.ntam.tech.metamac.R;
 import com.ntam.tech.metamac.api.utils.RetrofitRequest;
 import com.ntam.tech.metamac.api.utils.RetrofitResponse;
@@ -34,18 +36,18 @@ public class WebViewRequestsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view_requests);
         key = getIntent().getIntExtra("key", 0);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        webView = (WebView) findViewById(R.id.webview);
-        progress = (ProgressBar) findViewById(R.id.progress);
-        image = (ImageView) findViewById(R.id.image);
+        mToolbar = findViewById(R.id.toolbar);
+        webView = findViewById(R.id.webview);
+        progress = findViewById(R.id.progress);
+        image = findViewById(R.id.image);
         setSupportActionBar(mToolbar);
 
         switch (key) {
             case Constant.LEADERSHIP_KEY:
                 // leadership_principles
-                getSupportActionBar().setTitle("Leadership Principles");
+                /*getSupportActionBar().setTitle("Leadership Principles");
                 url = "leadership_principles.php";
-                break;
+                break;*/
             case Constant.DINNER_KEY:
                 // dinners.php
                 getSupportActionBar().setTitle("Dinner");
@@ -73,19 +75,15 @@ public class WebViewRequestsActivity extends AppCompatActivity {
         RetrofitRequest.getNewRequests(url, new RetrofitResponse<WebViewModel>() {
             @Override
             public void onSuccess(WebViewModel webViewModel) {
-                if(url.equals("leadership_principles.php")){
-                    webView.getSettings().setJavaScriptEnabled(true);
-                    webView.loadUrl("https://docs.google.com/viewer?url="+webViewModel.getPdf());
+                if (url.equals("dinners.php")) {
+                    image.setVisibility(View.VISIBLE);
+                    Utils.setImageFitCenter(WebViewRequestsActivity.this, webViewModel.getImage(), image);
+                    //image.setImage(ImageSource.resource(R.drawable.test));
                 }
-                else {
-                    if(url.equals("Dinner")){
-                        image.setVisibility(View.VISIBLE);
-                        Utils.setImage(WebViewRequestsActivity.this,webViewModel.getImage(),image);
-                    }else {
-                        webView.loadDataWithBaseURL("", webViewModel.getBody(), "text/html", "utf-8", "");
-                    }
-                }
-                webView.setWebViewClient(new WebViewClient(){
+                webView.loadDataWithBaseURL("", webViewModel.getBody(), "text/html", "utf-8", "");
+
+
+                webView.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageFinished(WebView view, String url) {
                         super.onPageFinished(view, url);

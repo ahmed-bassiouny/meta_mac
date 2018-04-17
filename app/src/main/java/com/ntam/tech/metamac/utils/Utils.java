@@ -66,6 +66,13 @@ public class Utils {
                 .into(imageView);
     }
 
+    public static void setImageFitCenter(final Context context, String imgUrl, ImageView imageView) {
+        Glide.with(context)
+                .load(imgUrl)
+                .fitCenter()
+                .into(imageView);
+    }
+
     public static String getMothStringByNumber(int number) {
         String result = "";
         // TODO check if language arabic or english to return value
