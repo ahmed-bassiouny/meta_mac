@@ -14,11 +14,12 @@ public class ViewImageWithZoomActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private int key;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_image_with_zoom);
-        SubsamplingScaleImageView imageView = (SubsamplingScaleImageView)findViewById(R.id.imageView);
+        SubsamplingScaleImageView imageView = findViewById(R.id.imageView);
         //imageView.setImage(ImageSource.resource(R.drawable.monkey));
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -33,13 +34,13 @@ public class ViewImageWithZoomActivity extends AppCompatActivity {
             }
         });
         key = getIntent().getIntExtra("key", 0);
-        if(key== Constant.LEADERSHIP_KEY){
+        if (key == Constant.LEADERSHIP_KEY) {
             getSupportActionBar().setTitle("Leadership Principles");
             imageView.setImage(ImageSource.resource(R.drawable.leader));
-        }else {
+            //imageView.setScaleX(1.5f);
+        } else {
             getSupportActionBar().setTitle("Ferring Philosophy");
             imageView.setImage(ImageSource.resource(R.drawable.about));
         }
-
     }
 }
