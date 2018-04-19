@@ -38,9 +38,18 @@ public class HomeMenuItem extends RecyclerView.Adapter<HomeMenuItem.GridViewHold
     @NonNull
     @Override
     public GridViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mLayoutInflater.inflate(R.layout.item_home_menu, parent, false);
-        return new GridViewHolder(itemView);
+        if(viewType == 1) {
+            View itemView = mLayoutInflater.inflate(R.layout.item_home_menu_largr, parent, false);
+            return new GridViewHolder(itemView);
+        }else if(viewType == 2) {
+            View itemView = mLayoutInflater.inflate(R.layout.item_home_menu_margin, parent, false);
+            return new GridViewHolder(itemView);
+        }else {
+            View itemView = mLayoutInflater.inflate(R.layout.item_home_menu, parent, false);
+            return new GridViewHolder(itemView);
+        }
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull GridViewHolder holder, int position) {
@@ -70,15 +79,23 @@ public class HomeMenuItem extends RecyclerView.Adapter<HomeMenuItem.GridViewHold
         }
 
     }
-    public void updateMessageCountText(int total){
+
+    public void updateMessageCountText(int total) {
         int size = gridViewString.size();
-        for(int i=0;i<size;i++){
-            if(gridViewString.get(i).contains("Messages")){
-                gridViewString.set(i,"Messages ("+total+")");
+        for (int i = 0; i < size; i++) {
+            if (gridViewString.get(i).contains("Messages")) {
+                gridViewString.set(i, "Messages (" + total + ")");
                 notifyItemChanged(i);
             }
         }
     }
 
-
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 7 || position == 8) {
+            return 1;
+        }else if(position == 6)
+            return 2;
+        return 0;
+    }
 }
